@@ -2,6 +2,6 @@
 {
     public class Customer : Account
     {
-        public List<Booking> Bookings { get; set; }
+        public List<Booking>? Bookings { get; set; }
     }
 }
