@@ -1,11 +1,13 @@
 ﻿using FribergCarRentalsWebbApp.Models;
-using static FribergCarRentalsWebbApp.Common.AccountHelper;
+using FribergCarRentalsWebbApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FribergCarRentalsWebbApp.Controllers
 {
-    public class AccountController : Controller
+    public class CustomerAccountController(CustomerAccountService customerAccountService) : Controller
     {
+        private readonly CustomerAccountService _customerAccountService = customerAccountService;
+
         public IActionResult Index()
         {
             return View();
@@ -14,13 +16,13 @@ namespace FribergCarRentalsWebbApp.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            Account? user = AuthenticateAccount(email, password);
+            Customer? user = _customerAccountService.AuthenticateAccount(email, password);
             if (user == null)
             {
                 return Json(new { success = false, message = "Invalid credentials." });
             }
 
-            CreateAuthCookie(user);
+            CreateNonAdminAuthCookie(user);
 
             return Json(new { success = true, message = "Login successful." });
         }
@@ -28,21 +30,21 @@ namespace FribergCarRentalsWebbApp.Controllers
         [HttpPost]
         public ActionResult Signup(string email, string password)
         {
-            Account? user = CreateAccount(email, password);
+            Customer? user = _customerAccountService.CreateAccount(email, password);
             if (user == null)
             {
                 return Json(new { success = false, message = "Signup failed." });
             }
 
-            CreateAuthCookie(user);
+            CreateNonAdminAuthCookie(user);
 
             return Json(new { success = true, message = "Signup successful." });
         }
 
-        private void CreateAuthCookie(Account user)
+        private void CreateNonAdminAuthCookie(Customer user)
         {
             // Create a cookie with format: "UserId|IsAdmin"
-            bool isAdmin = user is Administrator;
+            bool isAdmin = false;
             string cookieValue = $"{user.Id}|{isAdmin.ToString().ToLower()}";
             CookieOptions cookieOptions = new()
             {

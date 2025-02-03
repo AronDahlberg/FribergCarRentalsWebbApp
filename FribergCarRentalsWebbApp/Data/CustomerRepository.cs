@@ -8,7 +8,6 @@ namespace FribergCarRentalsWebbApp.Data
         public void Add(Customer customer)
         {
             _context.Add(customer);
-            _context.SaveChanges();
         }
 
         public IEnumerable<Customer> All()
@@ -30,6 +29,10 @@ namespace FribergCarRentalsWebbApp.Data
         public void Update(Customer customer)
         {
             _context.Update(customer);
+        }
+
+        public void Save()
+        {
             _context.SaveChanges();
         }
     }

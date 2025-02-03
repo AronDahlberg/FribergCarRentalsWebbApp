@@ -9,5 +9,6 @@ namespace FribergCarRentalsWebbApp.Data
         void Add(Customer customer);
         void Update(Customer customer);
         IEnumerable<Customer> All();
+        void Save();
     }
 }

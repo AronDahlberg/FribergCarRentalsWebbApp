@@ -1,8 +1,6 @@
-﻿using FribergCarRentalsWebbApp.Models;
-
-namespace FribergCarRentalsWebbApp.Common
+﻿namespace FribergCarRentalsWebbApp.Common
 {
-    public static class AccountHelper
+    public static class AuthHelper
     {
         /// <summary>
         /// Checks the current HTTP context and returns the user's authentication status.
@@ -25,16 +23,6 @@ namespace FribergCarRentalsWebbApp.Common
             }
 
             return isAdmin ? AuthStatus.AdminAuthorized : AuthStatus.Authorized;
-        }
-
-        public static Account? AuthenticateAccount(string email, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static Account? CreateAccount(string email, string password)
-        {
-            throw new NotImplementedException();
         }
     }
 }

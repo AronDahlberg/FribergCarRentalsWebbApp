@@ -1,4 +1,5 @@
 using FribergCarRentalsWebbApp.Data;
+using FribergCarRentalsWebbApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace FribergCarRentalsWebbApp
@@ -15,6 +16,9 @@ namespace FribergCarRentalsWebbApp
                                                                                                     .AddJsonFile("appsettings.json")
                                                                                                     .Build()
                                                                                                     .GetSection("ConnectionStrings")["FribergCarRentals"]));
+            builder.Services.AddScoped<ICustomer, CustomerRepository>();
+            builder.Services.AddScoped<IAdministrator, AdministratorRepository>();
+            builder.Services.AddScoped<CustomerAccountService>();
 
             var app = builder.Build();
 
