@@ -27,12 +27,12 @@ namespace FribergCarRentalsWebbApp.Common
             return isAdmin ? AuthStatus.AdminAuthorized : AuthStatus.Authorized;
         }
 
-        public static Account AuthenticateAccount(string email, string password)
+        public static Account? AuthenticateAccount(string email, string password)
         {
             throw new NotImplementedException();
         }
 
-        public static Account CreateAccount(string email, string password)
+        public static Account? CreateAccount(string email, string password)
         {
             throw new NotImplementedException();
         }
