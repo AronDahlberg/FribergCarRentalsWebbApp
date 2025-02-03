@@ -1,4 +1,6 @@
-﻿namespace FribergCarRentalsWebbApp.Common
+﻿using FribergCarRentalsWebbApp.Models;
+
+namespace FribergCarRentalsWebbApp.Common
 {
     public static class AccountHelper
     {
@@ -23,6 +25,16 @@
             }
 
             return isAdmin ? AuthStatus.AdminAuthorized : AuthStatus.Authorized;
+        }
+
+        public static Account AuthenticateAccount(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Account CreateAccount(string email, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }
