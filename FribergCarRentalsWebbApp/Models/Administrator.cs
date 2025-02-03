@@ -1,6 +1,6 @@
 ﻿namespace FribergCarRentalsWebbApp.Models
 {
-    public class Administrator
+    public class Administrator : Account
     {
     }
 }
