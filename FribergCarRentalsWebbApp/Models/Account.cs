@@ -1,6 +1,7 @@
 ﻿namespace FribergCarRentalsWebbApp.Models
 {
-    public class Account
+    public abstract class Account
     {
+
     }
 }
