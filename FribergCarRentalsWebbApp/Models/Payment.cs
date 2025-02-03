@@ -1,4 +1,6 @@
-﻿namespace FribergCarRentalsWebbApp.Models
+﻿using FribergCarRentalsWebbApp.Common;
+
+namespace FribergCarRentalsWebbApp.Models
 {
     public class Payment
     {
