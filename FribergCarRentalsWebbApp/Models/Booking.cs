@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public Car Car { get; set; }
         public Customer CustomerAccount { get; set; }
-        public List<Payment> Payments { get; set; }
+        public List<Payment>? Payments { get; set; }
         public DateTime BookingCreation { get; set; }
         public DateTime PickupDateTime { get; set; }
         public DateTime DropoffDateTime { get; set; }
