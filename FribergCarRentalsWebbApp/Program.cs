@@ -1,3 +1,6 @@
+using FribergCarRentalsWebbApp.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace FribergCarRentalsWebbApp
 {
     public class Program
@@ -8,6 +11,10 @@ namespace FribergCarRentalsWebbApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(new ConfigurationBuilder()
+                                                                                                    .AddJsonFile("appsettings.json")
+                                                                                                    .Build()
+                                                                                                    .GetSection("ConnectionStrings")["FribergCarRentals"]));
 
             var app = builder.Build();
 
