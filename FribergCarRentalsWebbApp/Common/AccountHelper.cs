@@ -1,6 +1,6 @@
 ﻿namespace FribergCarRentalsWebbApp.Common
 {
-    public static class AuthHelper
+    public static class AccountHelper
     {
         /// <summary>
         /// Checks the current HTTP context and returns the user's authentication status.
