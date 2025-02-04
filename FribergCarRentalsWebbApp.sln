@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FribergCarRentalsWebbApp", "FribergCarRentalsWebbApp\FribergCarRentalsWebbApp.csproj", "{253E7228-AE96-442B-BD21-FC95C0314E61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FribergCarRentalsWebbApp", "FribergCarRentalsWebbApp\FribergCarRentalsWebbApp.csproj", "{253E7228-AE96-442B-BD21-FC95C0314E61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
