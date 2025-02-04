@@ -43,4 +43,5 @@ body {
 
     .user-circle:hover {
         background-color: #0056b3;
+        color: white;
     }

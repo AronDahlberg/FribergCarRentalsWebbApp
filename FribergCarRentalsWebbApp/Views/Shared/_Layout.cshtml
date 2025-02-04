@@ -32,6 +32,10 @@
     <link rel="stylesheet" href="~/FribergCarRentalsWebbApp.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @if (!userIsConfirmedCustomer && !userIsConfirmedAdmin)
+    {
+        @await Html.PartialAsync("~/Views/Shared/_LoginSignupPopup.cshtml")
+    }
     @if (cookiesAccepted == null)
     {
         @await Html.PartialAsync("~/Views/Shared/_CookieBanner.cshtml")
@@ -43,12 +47,19 @@
 
                 @if (userIsConfirmedCustomer)
                 {
-                <!-- User Circle -->
-                <a id="userProfile" asp-area="" asp-controller="Account" asp-action="Index"
-                   class="user-circle d-flex justify-content-center align-items-center text-decoration-none"
-                   data-bs-toggle="tooltip" data-bs-placement="left" title="@userEmail">
-                    @userEmail?.Substring(0, 1).ToUpper()
-                </a>
+                    <!-- User Circle -->
+                    <a id="userProfile" asp-area="" asp-controller="Account" asp-action="Index"
+                       class="user-circle d-flex justify-content-center align-items-center text-decoration-none"
+                       data-bs-toggle="tooltip" data-bs-placement="left" title="@userEmail">
+                        @userEmail?.Substring(0, 1).ToUpper()
+                    </a>
+                }
+
+                @if (!userIsConfirmedCustomer && !userIsConfirmedAdmin)
+                {
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginSignupModal">
+                        Login / Signup
+                    </button>
                 }
             </div>
         </nav>
