@@ -5,7 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FribergCarRentalsWebbApp.Controllers
 {
-    public class CustomerAccountController(ICustomerAccountService customerAccountService) : Controller
+    /// <summary>
+    /// For customer accounts
+    /// </summary>
+    /// <param name="customerAccountService"></param>
+    public class AccountController(ICustomerAccountService customerAccountService) : Controller
     {
         private readonly ICustomerAccountService _customerAccountService = customerAccountService;
 

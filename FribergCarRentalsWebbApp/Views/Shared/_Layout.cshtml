@@ -44,7 +44,7 @@
                 @if (userIsConfirmedCustomer)
                 {
                 <!-- User Circle -->
-                <a id="userProfile" asp-area="" asp-controller="CustomerAccount" asp-action="Index"
+                <a id="userProfile" asp-area="" asp-controller="Account" asp-action="Index"
                    class="user-circle d-flex justify-content-center align-items-center text-decoration-none"
                    data-bs-toggle="tooltip" data-bs-placement="left" title="@userEmail">
                     @userEmail?.Substring(0, 1).ToUpper()

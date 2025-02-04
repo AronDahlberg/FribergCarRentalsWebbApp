@@ -10,7 +10,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/CustomerAccount/Login",
+            url: "/Account/Login",
             data: formData,
             dataType: "json", // Expect JSON response
             success: function (response) {
@@ -40,7 +40,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/CustomerAccount/Signup",
+                url: "/Account/Signup",
                 data: formData,
                 dataType: "json", // Expect JSON response
                 success: function (response) {
