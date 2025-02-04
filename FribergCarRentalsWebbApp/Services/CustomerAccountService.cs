@@ -10,7 +10,7 @@ namespace FribergCarRentalsWebbApp.Services
 
         public Customer? AuthenticateAccount(string email, string password)
         {
-            return _customerRepository.GetByCredentials(email, password);
+            return _customerRepository.Find(c => c.Email == email && c.Password == password);
         }
 
         public Customer? CreateAccount(string email, string password)
@@ -27,6 +27,11 @@ namespace FribergCarRentalsWebbApp.Services
             _customerRepository.Save();
 
             return customer;
+        }
+
+        public bool EmailExists(string email)
+        {
+            return _customerRepository.Find(c => c.Email == email) != null;
         }
     }
 }

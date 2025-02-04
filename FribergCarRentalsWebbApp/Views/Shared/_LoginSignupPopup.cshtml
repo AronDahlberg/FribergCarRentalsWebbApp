@@ -1,5 +1,5 @@
 ﻿<!-- Modal markup for Login/Signup -->
-<div class="modal fade" id="loginSignupModal" tabindex="-1" aria-labelledby="loginSignupModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginSignupModal" tabindex="-1" aria-labelledby="loginSignupModalLabel">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,14 +11,14 @@
                     <!-- Login Section -->
                     <div class="flex-fill p-3 border-end custom-border">
                         <h4>Login</h4>
-                        <form>
+                        <form id="login-form">
                             <div class="mb-3">
                                 <label for="loginEmail" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="loginEmail" placeholder="Enter email">
+                                <input type="email" class="form-control" id="loginEmail" name="Email" placeholder="Enter email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="loginPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+                                <input type="password" class="form-control" id="loginPassword" name="Password" placeholder="Password" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Login</button>
                         </form>
@@ -26,18 +26,18 @@
                     <!-- Signup Section -->
                     <div class="flex-fill p-3">
                         <h4>Sign Up</h4>
-                        <form>
+                        <form id="signup-form">
                             <div class="mb-3">
                                 <label for="signupEmail" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="signupEmail" placeholder="Enter email">
+                                <input type="email" class="form-control" id="signupEmail" name="Email" placeholder="Enter email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="signupPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="signupPassword" placeholder="Password">
+                                <input type="password" class="form-control" id="signupPassword" name="Password" placeholder="Password" required>
                             </div>
                             <div class="mb-3">
                                 <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm Password">
+                                <input type="password" class="form-control" id="signupConfirmPassword" name="Password" placeholder="Confirm Password" required>
                             </div>
                             <button type="submit" class="btn btn-success">Sign Up</button>
                         </form>

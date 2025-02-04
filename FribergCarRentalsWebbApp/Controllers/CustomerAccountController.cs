@@ -1,12 +1,13 @@
 ﻿using FribergCarRentalsWebbApp.Models;
 using FribergCarRentalsWebbApp.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FribergCarRentalsWebbApp.Controllers
 {
-    public class CustomerAccountController(CustomerAccountService customerAccountService) : Controller
+    public class CustomerAccountController(ICustomerAccountService customerAccountService) : Controller
     {
-        private readonly CustomerAccountService _customerAccountService = customerAccountService;
+        private readonly ICustomerAccountService _customerAccountService = customerAccountService;
 
         public IActionResult Index()
         {
@@ -19,7 +20,7 @@ namespace FribergCarRentalsWebbApp.Controllers
             Customer? user = _customerAccountService.AuthenticateAccount(email, password);
             if (user == null)
             {
-                return Json(new { success = false, message = "Invalid credentials." });
+                return Unauthorized("Invalid credentials");
             }
 
             CreateNonAdminAuthCookie(user);
@@ -30,10 +31,16 @@ namespace FribergCarRentalsWebbApp.Controllers
         [HttpPost]
         public ActionResult Signup(string email, string password)
         {
+            if (_customerAccountService.EmailExists(email))
+            {
+                return Conflict("Email is already in use");
+            }
+
             Customer? user = _customerAccountService.CreateAccount(email, password);
+
             if (user == null)
             {
-                return Json(new { success = false, message = "Signup failed." });
+                return StatusCode(500, "Unkown error");
             }
 
             CreateNonAdminAuthCookie(user);

@@ -1,11 +1,12 @@
 ﻿using FribergCarRentalsWebbApp.Models;
+using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
 {
     public interface ICustomer
     {
         Customer? GetById(int id);
-        Customer? GetByCredentials(string email, string password);
+        Customer? Find(Expression<Func<Customer, bool>> predicate);
         void Add(Customer customer);
         void Update(Customer customer);
         IEnumerable<Customer> All();

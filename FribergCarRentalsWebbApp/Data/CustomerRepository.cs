@@ -1,4 +1,5 @@
 ﻿using FribergCarRentalsWebbApp.Models;
+using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
 {
@@ -15,15 +16,14 @@ namespace FribergCarRentalsWebbApp.Data
             return _context.Customers.AsEnumerable();
         }
 
-        public Customer? GetByCredentials(string email, string password)
-        {
-            return _context.Customers
-                .FirstOrDefault(c => c.Email == email && c.Password == password);
-        }
-
         public Customer? GetById(int id)
         {
             return _context.Customers.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Customer? Find(Expression<Func<Customer, bool>> predicate)
+        {
+            return _context.Customers.FirstOrDefault(predicate);
         }
 
         public void Update(Customer customer)
