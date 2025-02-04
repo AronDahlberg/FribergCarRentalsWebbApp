@@ -2,7 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <!-- Top Half: Logo and Text -->
+    <div class="row top-half justify-content-center align-items-center mb-5 mt-5">
+        <div class="col-auto">
+            <img src="~/images/FribergCarRentalsLogo.png" alt="Logo" class="img-fluid" style="max-height: 80%;">
+        </div>
+        <div class="col-auto d-flex flex-column justify-content-center ms-3">
+            <h1 class="display-4">Rent cheap cars!</h1>
+            <p class="lead">We offer not only cheap, but also high quality cars!</p>
+        </div>
+    </div>
+
+    <!-- Bottom Half: Main Buttons -->
+    <div class="row align-items-center">
+        <div class="col d-flex align-items-center justify-content-center">
+            <div class="d-flex gap-5">
+                <button type="button" class="btn btn-primary btn-lg fs-3 p-3">RENT CAR</button>
+                <button type="button" class="btn btn-secondary btn-lg fs-3 p-3">ALL CARS</button>
+            </div>
+        </div>
+    </div>
 </div>
