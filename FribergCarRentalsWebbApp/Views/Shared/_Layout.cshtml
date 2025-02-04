@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var cookiesAccepted = Context.Request.Cookies["cookiesAccepted"];
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,6 +13,10 @@
     <link rel="stylesheet" href="~/FribergCarRentalsWebbApp.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @if (cookiesAccepted == null)
+    {
+        @await Html.PartialAsync("~/Views/Shared/_CookieBanner.cshtml")
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -45,6 +53,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/loginSingup.js"></script>
+    <script src="~/js/cookieBanner.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
