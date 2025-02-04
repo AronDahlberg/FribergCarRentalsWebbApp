@@ -1,9 +1,11 @@
 ﻿using FribergCarRentalsWebbApp.Models;
+using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
 {
     public interface IAdministrator
     {
-        Administrator? GetByCredentials(string email, string password);
+        Administrator? Find(Expression<Func<Administrator, bool>> predicate);
+        Administrator? GetById(int id);
     }
 }

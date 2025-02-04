@@ -1,4 +1,6 @@
 ﻿using FribergCarRentalsWebbApp.Models;
+using System;
+using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
 {
@@ -6,10 +8,15 @@ namespace FribergCarRentalsWebbApp.Data
     {
         private readonly ApplicationDbContext _context = context;
 
-        public Administrator? GetByCredentials(string email, string password)
+        public Administrator? Find(Expression<Func<Administrator, bool>> predicate)
         {
-            return _context.Administrators
-                .FirstOrDefault(c => c.Email == email && c.Password == password);
+            return _context.Administrators.FirstOrDefault(predicate);
+
         }
+        public Administrator? GetById(int id)
+        {
+            return _context.Administrators.FirstOrDefault(a => a.Id == id);
+        }
+
     }
 }
