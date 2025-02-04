@@ -7,5 +7,7 @@ namespace FribergCarRentalsWebbApp.Services
         Customer? AuthenticateAccount(string email, string password);
         Customer? CreateAccount(string email, string password);
         bool EmailExists(string email);
+        string? GetEmail(int id);
+        bool ConfirmAccountAsCustomer(int id);
     }
 }
