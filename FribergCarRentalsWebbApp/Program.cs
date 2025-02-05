@@ -16,8 +16,7 @@ namespace FribergCarRentalsWebbApp
                                                                                                     .AddJsonFile("appsettings.json")
                                                                                                     .Build()
                                                                                                     .GetSection("ConnectionStrings")["FribergCarRentals"]));
-            builder.Services.AddScoped<ICustomer, CustomerRepository>();
-            builder.Services.AddScoped<IAdministrator, AdministratorRepository>();
+            builder.Services.AddScoped<IAccount, AccountRepository>();
             builder.Services.AddScoped<ICustomerAccountService, CustomerAccountService>();
             builder.Services.AddScoped<IAdministratorAccountService, AdministratorAccountService>();
 

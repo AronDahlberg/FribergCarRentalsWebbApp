@@ -3,10 +3,12 @@ using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
 {
-    public interface ICustomer
+    public interface IAccount
     {
         Customer? GetById(int id);
         Customer? Find(Expression<Func<Customer, bool>> predicate);
+        Administrator? FindAdministrator(Expression<Func<Administrator, bool>> predicate);
+        Administrator? GetAdministratorById(int id);
         void Add(Customer customer);
         void Update(Customer customer);
         IEnumerable<Customer> All();

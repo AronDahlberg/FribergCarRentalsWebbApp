@@ -3,9 +3,9 @@ using FribergCarRentalsWebbApp.Models;
 
 namespace FribergCarRentalsWebbApp.Services
 {
-    public class AdministratorAccountService(IAdministrator administratorRepository) : IAdministratorAccountService
+    public class AdministratorAccountService(IAccount accountRepository) : IAdministratorAccountService
     {
-        private readonly IAdministrator _administratorRepository = administratorRepository;
+        private readonly IAccount _accountRepository = accountRepository;
         public Administrator? AuthenticateAccount(string email, string password)
         {
             throw new NotImplementedException();
@@ -13,7 +13,7 @@ namespace FribergCarRentalsWebbApp.Services
 
         public bool ConfirmAccountAsAdministrator(int id)
         {
-            return _administratorRepository.GetById(id) != null;
+            return _accountRepository.GetAdministratorById(id) != null;
         }
     }
 }

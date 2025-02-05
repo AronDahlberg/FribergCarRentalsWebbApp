@@ -4,9 +4,9 @@ using FribergCarRentalsWebbApp.Models;
 
 namespace FribergCarRentalsWebbApp.Services
 {
-    public class CustomerAccountService(ICustomer customerRepository) : ICustomerAccountService
+    public class CustomerAccountService(IAccount customerRepository) : ICustomerAccountService
     {
-        private readonly ICustomer _customerRepository = customerRepository;
+        private readonly IAccount _customerRepository = customerRepository;
 
         public Customer? AuthenticateAccount(string email, string password)
         {

@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
 {
-    public class CustomerRepository(ApplicationDbContext context) : ICustomer
+    public class AccountRepository(ApplicationDbContext context) : IAccount
     {
         private readonly ApplicationDbContext _context = context;
         public void Add(Customer customer)
@@ -24,6 +24,15 @@ namespace FribergCarRentalsWebbApp.Data
         public Customer? Find(Expression<Func<Customer, bool>> predicate)
         {
             return _context.Customers.FirstOrDefault(predicate);
+        }
+        public Administrator? FindAdministrator(Expression<Func<Administrator, bool>> predicate)
+        {
+            return _context.Administrators.FirstOrDefault(predicate);
+
+        }
+        public Administrator? GetAdministratorById(int id)
+        {
+            return _context.Administrators.FirstOrDefault(a => a.Id == id);
         }
 
         public void Update(Customer customer)
