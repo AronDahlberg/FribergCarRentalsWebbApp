@@ -4,13 +4,13 @@ using FribergCarRentalsWebbApp.Models;
 
 namespace FribergCarRentalsWebbApp.Services
 {
-    public class CustomerAccountService(IAccount customerRepository) : ICustomerAccountService
+    public class CustomerAccountService(IAccount accountRepository) : ICustomerAccountService
     {
-        private readonly IAccount _customerRepository = customerRepository;
+        private readonly IAccount _accountRepository = accountRepository;
 
         public Customer? AuthenticateAccount(string email, string password)
         {
-            return _customerRepository.Find(c => c.Email == email && c.Password == password);
+            return _accountRepository.Find(c => c.Email == email && c.Password == password);
         }
 
         public Customer? CreateAccount(string email, string password)
@@ -23,24 +23,24 @@ namespace FribergCarRentalsWebbApp.Services
                 Deleted = false,
             };
 
-            _customerRepository.Add(customer);
-            _customerRepository.Save();
+            _accountRepository.Add(customer);
+            _accountRepository.Save();
 
             return customer;
         }
 
         public bool EmailExists(string email)
         {
-            return _customerRepository.Find(c => c.Email == email) != null;
+            return _accountRepository.Find(c => c.Email == email) != null;
         }
 
         public string? GetEmail(int id)
         {
-            return _customerRepository.GetById(id)?.Email;
+            return _accountRepository.GetById(id)?.Email;
         }
         public bool ConfirmAccountAsCustomer(int id)
         {
-            return _customerRepository.GetById(id) != null;
+            return _accountRepository.GetById(id) != null;
         }
     }
 }
