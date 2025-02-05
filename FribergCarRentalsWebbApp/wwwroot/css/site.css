@@ -41,7 +41,23 @@ body {
     transition: background-color 0.3s ease;
 }
 
-    .user-circle:hover {
-        background-color: #0056b3;
-        color: white;
+.user-circle:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+#home-page-top-part {
+    margin-top: 20vh !important
+}
+
+@media (max-height: 1000px) {
+    #home-page-top-part {
+        margin-top: 10vh !important
     }
+}
+
+@media (max-height: 800px) {
+    #home-page-top-part {
+        margin-top: 5vh !important
+    }
+}
