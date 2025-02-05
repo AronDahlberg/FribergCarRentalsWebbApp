@@ -1,18 +1,15 @@
 ﻿@inject FribergCarRentalsWebbApp.Services.IAccountService AccountService
 
 @{
-    var splitCookie = Context.Request.Cookies["UserAuth"]?.Split('|');
+    int userId = (int)(Context.Items["UserId"] ?? 0);
 
-    int userId = int.Parse(splitCookie?[0] ?? "0");
+    bool userIsCustomer = (bool)(Context.Items["UserCustomer"] ?? false);
 
-    bool userIsAdmin = bool.Parse(splitCookie?[1] ?? "false");
-
-    bool userIsConfirmedCustomer = AccountService.ConfirmAccountAsCustomer(userId) && userIsAdmin == false;
-
-    bool userIsConfirmedAdmin = AccountService.ConfirmAccountAsAdministrator(userId) && userIsAdmin == true;
+    bool userIsAdmin = (bool)(Context.Items["UserAdmin"] ?? false);
 
     string? userEmail = null;
-    if (userIsConfirmedCustomer)
+
+    if (userIsCustomer)
     {
         userEmail = AccountService.GetCustomerEmail(userId);
     }
@@ -31,7 +28,7 @@
     <link rel="stylesheet" href="~/FribergCarRentalsWebbApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    @if (!userIsConfirmedCustomer && !userIsConfirmedAdmin)
+    @if (!userIsCustomer && !userIsAdmin)
     {
         @await Html.PartialAsync("~/Views/Shared/_LoginSignupPopup.cshtml")
     }
@@ -44,7 +41,7 @@
             <div class="container-fluid d-flex justify-content-between align-items-center">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Friberg Car Rentals</a>
 
-                @if (userIsConfirmedCustomer)
+                @if (userIsCustomer)
                 {
                     <!-- User Circle -->
                     <a id="userProfile" asp-area="" asp-controller="Account" asp-action="Index"
@@ -54,7 +51,7 @@
                     </a>
                 }
 
-                @if (!userIsConfirmedCustomer && !userIsConfirmedAdmin)
+                @if (!userIsCustomer && !userIsAdmin)
                 {
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginSignupModal">
                         Login / Signup

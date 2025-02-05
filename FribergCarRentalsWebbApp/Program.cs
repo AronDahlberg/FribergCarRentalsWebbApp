@@ -1,4 +1,5 @@
 using FribergCarRentalsWebbApp.Data;
+using FribergCarRentalsWebbApp.Middleware;
 using FribergCarRentalsWebbApp.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,25 +34,8 @@ namespace FribergCarRentalsWebbApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            // Custom middleware to grab and parse custom authorization cookie.
-            app.Use(async (context, next) =>
-            {
-                var authCookie = context.Request.Cookies["UserAuth"];
-                if (!string.IsNullOrEmpty(authCookie))
-                {
-                    // Expected format: "UserId|IsAdmin"
-                    var parts = authCookie.Split('|');
-                    if (parts.Length == 2 &&
-                        int.TryParse(parts[0], out int userId) &&
-                        bool.TryParse(parts[1], out bool isAdmin))
-                    {
-                        // Store values in context.Items for later use.
-                        context.Items["UserId"] = userId;
-                        context.Items["IsAdmin"] = isAdmin;
-                    }
-                }
-                await next.Invoke();
-            });
+            // Custom middleware to grab and store custom authorization cookie.
+            app.UseMiddleware<AuthorizationMiddleware>();
 
             app.UseRouting();
 
