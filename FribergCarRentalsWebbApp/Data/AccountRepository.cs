@@ -16,7 +16,7 @@ namespace FribergCarRentalsWebbApp.Data
             return _context.Customers.AsEnumerable();
         }
 
-        public Customer? GetById(int id)
+        public Customer? Get(int id)
         {
             return _context.Customers.FirstOrDefault(c => c.Id == id);
         }

@@ -15,7 +15,7 @@ namespace FribergCarRentalsWebbApp.Data
             throw new NotImplementedException();
         }
 
-        public Booking? GetById(int id)
+        public Booking? Get(int id)
         {
             throw new NotImplementedException();
         }

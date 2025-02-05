@@ -40,11 +40,11 @@ namespace FribergCarRentalsWebbApp.Services
 
         public string? GetCustomerEmail(int id)
         {
-            return _accountRepository.GetById(id)?.Email;
+            return _accountRepository.Get(id)?.Email;
         }
         public bool ConfirmAccountAsCustomer(int id)
         {
-            return _accountRepository.GetById(id) != null;
+            return _accountRepository.Get(id) != null;
         }
         public bool ConfirmAccountAsAdministrator(int id)
         {
