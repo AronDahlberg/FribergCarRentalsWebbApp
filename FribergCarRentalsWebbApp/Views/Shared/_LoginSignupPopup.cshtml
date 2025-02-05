@@ -3,16 +3,16 @@
 }
 
 <div class="modal fade" id="loginSignupModal" tabindex="-1" aria-labelledby="loginSignupModalLabel">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="loginSignupModalLabel">Welcome</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="d-flex flex-column flex-md-row">
+                <div class="row">
                     <!-- Login Section -->
-                    <div class="flex-fill p-3 border-end custom-border">
+                    <div class="col-md-6 border-end custom-border p-3">
                         <h4>Login</h4>
                         <form id="login-form">
                             <div class="mb-3">
@@ -27,7 +27,7 @@
                         </form>
                     </div>
                     <!-- Signup Section -->
-                    <div class="flex-fill p-3">
+                    <div class="col-md-6 p-3">
                         <h4>Sign Up</h4>
                         <form id="signup-form">
                             <div class="mb-3">
@@ -41,6 +41,12 @@
                             <div class="mb-3">
                                 <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
                                 <input type="password" class="form-control" id="signupConfirmPassword" name="Password" placeholder="Confirm Password" required>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="privacyPolicy" id="privacyCheckbox" required>
+                                <label class="form-check-label" for="privacyCheckbox">
+                                    I have read and understood the <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>.
+                                </label>
                             </div>
                             <button type="submit" class="btn btn-success">Sign Up</button>
                         </form>
