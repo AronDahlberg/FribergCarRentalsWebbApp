@@ -8,10 +8,10 @@ namespace FribergCarRentalsWebbApp.Controllers
     /// <summary>
     /// For customer accounts
     /// </summary>
-    /// <param name="customerAccountService"></param>
-    public class AccountController(ICustomerAccountService customerAccountService) : Controller
+    /// <param name="AccountService"></param>
+    public class AccountController(IAccountService AccountService) : Controller
     {
-        private readonly ICustomerAccountService _customerAccountService = customerAccountService;
+        private readonly IAccountService _AccountService = AccountService;
 
         public IActionResult Index()
         {
@@ -21,7 +21,7 @@ namespace FribergCarRentalsWebbApp.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            Customer? user = _customerAccountService.AuthenticateAccount(email, password);
+            Customer? user = _AccountService.AuthenticateCustomerAccount(email, password);
             if (user == null)
             {
                 return Unauthorized("Invalid credentials");
@@ -35,12 +35,12 @@ namespace FribergCarRentalsWebbApp.Controllers
         [HttpPost]
         public ActionResult Signup(string email, string password)
         {
-            if (_customerAccountService.EmailExists(email))
+            if (_AccountService.CustomerEmailExists(email))
             {
                 return Conflict("Email is already in use");
             }
 
-            Customer? user = _customerAccountService.CreateAccount(email, password);
+            Customer? user = _AccountService.CreateCustomerAccount(email, password);
 
             if (user == null)
             {

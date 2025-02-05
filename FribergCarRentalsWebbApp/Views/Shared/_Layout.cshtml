@@ -1,5 +1,4 @@
-﻿@inject FribergCarRentalsWebbApp.Services.ICustomerAccountService CustomerAccountService
-@inject FribergCarRentalsWebbApp.Services.IAdministratorAccountService AdministratorAccountService
+﻿@inject FribergCarRentalsWebbApp.Services.IAccountService AccountService
 
 @{
     var splitCookie = Context.Request.Cookies["UserAuth"]?.Split('|');
@@ -8,14 +7,14 @@
 
     bool userIsAdmin = bool.Parse(splitCookie?[1] ?? "false");
 
-    bool userIsConfirmedCustomer = CustomerAccountService.ConfirmAccountAsCustomer(userId) && userIsAdmin == false;
+    bool userIsConfirmedCustomer = AccountService.ConfirmAccountAsCustomer(userId) && userIsAdmin == false;
 
-    bool userIsConfirmedAdmin = AdministratorAccountService.ConfirmAccountAsAdministrator(userId) && userIsAdmin == true;
+    bool userIsConfirmedAdmin = AccountService.ConfirmAccountAsAdministrator(userId) && userIsAdmin == true;
 
     string? userEmail = null;
     if (userIsConfirmedCustomer)
     {
-        userEmail = CustomerAccountService.GetEmail(userId);
+        userEmail = AccountService.GetCustomerEmail(userId);
     }
 
     var cookiesAccepted = Context.Request.Cookies["cookiesAccepted"];

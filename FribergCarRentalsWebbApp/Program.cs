@@ -17,8 +17,7 @@ namespace FribergCarRentalsWebbApp
                                                                                                     .Build()
                                                                                                     .GetSection("ConnectionStrings")["FribergCarRentals"]));
             builder.Services.AddScoped<IAccount, AccountRepository>();
-            builder.Services.AddScoped<ICustomerAccountService, CustomerAccountService>();
-            builder.Services.AddScoped<IAdministratorAccountService, AdministratorAccountService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
             var app = builder.Build();
 
