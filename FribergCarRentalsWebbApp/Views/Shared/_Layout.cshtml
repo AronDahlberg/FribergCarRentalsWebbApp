@@ -39,7 +39,10 @@
     <header>
         <nav class="navbar navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Friberg Car Rentals</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/FribergCarRentalsLogoSmall.png" alt="Logo" width="36" height="36" class="d-inline-block align-top me-2">
+                    <span class="align-middle">Friberg Car Rentals</span>
+                </a>
 
                 @if (userIsCustomer)
                 {
