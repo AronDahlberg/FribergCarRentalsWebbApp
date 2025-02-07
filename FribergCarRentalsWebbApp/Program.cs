@@ -20,7 +20,9 @@ namespace FribergCarRentalsWebbApp
             builder.Services.AddScoped<IAccount, AccountRepository>();
             builder.Services.AddScoped<IBooking, BookingRepository>();
             builder.Services.AddScoped<ICar,  CarRepository>();
+            builder.Services.AddScoped<IPrice, PriceRepository>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IBookingService, BookingService>();
 
             var app = builder.Build();
 
