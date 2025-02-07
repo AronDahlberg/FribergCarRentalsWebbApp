@@ -23,7 +23,7 @@ namespace FribergCarRentalsWebbApp.Data
             return _context.Cars.AsEnumerable();
         }
 
-        public IEnumerable<Car> AllIncludingPriceAndImage()
+        public IEnumerable<Car> AllIncludingPricesAndImages()
         {
             return [.. _context.Cars
                 .Include(c => c.Prices)

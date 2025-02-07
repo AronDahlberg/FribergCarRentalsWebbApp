@@ -10,7 +10,7 @@ namespace FribergCarRentalsWebbApp.Services
 
         public IEnumerable<Car> GetAllCars()
         {
-            return _carRepository.AllIncludingPriceAndImage();
+            return _carRepository.AllIncludingPricesAndImages();
         }
 
         public Price GetCurrentCarPrice(Car car)

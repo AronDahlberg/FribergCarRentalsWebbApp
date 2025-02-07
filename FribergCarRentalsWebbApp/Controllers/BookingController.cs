@@ -1,5 +1,4 @@
-﻿using FribergCarRentalsWebbApp.Models;
-using FribergCarRentalsWebbApp.Services;
+﻿using FribergCarRentalsWebbApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FribergCarRentalsWebbApp.Controllers
@@ -12,13 +11,7 @@ namespace FribergCarRentalsWebbApp.Controllers
         {
             var cars = _bookingService.GetAllCars();
 
-            var carsWithPrices = cars.Select(car => new CarWithPriceViewModel
-            {
-                Car = car,
-                Price = _bookingService.GetCurrentCarPrice(car)
-            });
-
-            return View(carsWithPrices);
+            return View(cars);
         }
     }
 }

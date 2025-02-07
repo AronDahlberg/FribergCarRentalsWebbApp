@@ -8,7 +8,7 @@ namespace FribergCarRentalsWebbApp.Data
         Car? Get(int id);
         Car? Find(Expression<Func<Car, bool>> predicate);
         IEnumerable<Car> All();
-        IEnumerable<Car> AllIncludingPriceAndImage();
+        IEnumerable<Car> AllIncludingPricesAndImages();
         void Add(Car car);
         void Update(Car car);
         void Save();

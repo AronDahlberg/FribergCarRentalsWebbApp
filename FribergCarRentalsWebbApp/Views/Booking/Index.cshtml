@@ -1,4 +1,6 @@
-﻿@model IEnumerable<FribergCarRentalsWebbApp.Models.CarWithPriceViewModel>
+﻿@model IEnumerable<FribergCarRentalsWebbApp.Models.Car>
+@inject FribergCarRentalsWebbApp.Services.IBookingService BookingService
+
 @{
     ViewData["Title"] = "All Cars";
 }
@@ -15,22 +17,22 @@
 
 <div class="container mt-4">
     <div class="row">
-        @foreach (var item in Model)
+        @foreach (var car in Model)
         {
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">@item.Car.Name</h5>
+                        <h5 class="card-title">@car.Name</h5>
                         <p class="card-text">
-                            @if (!string.IsNullOrEmpty(item.Car.Description))
+                            @if (!string.IsNullOrEmpty(car.Description))
                             {
-                                @(item.Car.Description.Length > 50 
-                                    ? item.Car.Description.Substring(0, 50) + "..." 
-                                    : item.Car.Description)
+                                @(car.Description.Length > 50 
+                                    ? car.Description.Substring(0, 50) + "..." 
+                                    : car.Description)
                             }
                         </p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="text-muted">$@item.Price.DailyPrice/day</span>
+                            <span class="text-muted">$@BookingService.GetCurrentCarPrice(car).DailyPrice/day</span>
                             <a href="#" class="btn btn-primary">See More</a>
                         </div>
                     </div>
