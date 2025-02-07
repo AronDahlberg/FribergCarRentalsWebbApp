@@ -32,7 +32,15 @@ namespace FribergCarRentalsWebbApp.Data
 
         public Car? Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Cars.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Car? GetIncludingPricesAndImages(int id)
+        {
+            return _context.Cars
+                    .Include(c => c.Prices)
+                    .Include(c => c.Images)
+                    .FirstOrDefault(c => c.Id == id);
         }
 
         public void Save()
