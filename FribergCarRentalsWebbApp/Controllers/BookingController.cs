@@ -14,5 +14,10 @@ namespace FribergCarRentalsWebbApp.Controllers
 
             return View(cars);
         }
+
+        public IActionResult Details(int id)
+        {
+            return View(_carService.GetById(id));
+        }
     }
 }

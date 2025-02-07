@@ -33,7 +33,10 @@
                         </p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <span class="text-muted">$@CarService.GetCurrentCarPrice(car).DailyPrice/day</span>
-                            <a href="#" class="btn btn-primary">See More</a>
+                            <a asp-controller="Booking" asp-action="Details"
+                                asp-route-id="@car.Id" class="btn btn-primary">
+                               See More
+                           </a>
                         </div>
                     </div>
                 </div>

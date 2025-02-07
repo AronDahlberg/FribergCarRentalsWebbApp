@@ -1,0 +1,45 @@
+﻿@model FribergCarRentalsWebbApp.Models.Car
+@inject FribergCarRentalsWebbApp.Services.ICarService CarService
+
+@{
+    ViewData["Title"] = "Car Details";
+
+    Price price = CarService.GetCurrentCarPrice(Model);
+}
+
+<div class="container mt-4">
+    <h1>@Model.Name</h1>
+    <hr style="border: none; border-top: 1px solid #888; margin: 3rem 0;">
+    <div class="row">
+        <div class="col-md-8 order-2 order-md-1">
+            <div>
+                <p style="margin-top: 8px">@Model.Description</p>
+                <ul class="list-unstyled">
+                    <li>$@price.DailyPrice per day</li>
+                    <li>Max @price.AllowedDailyMileage miles per day in total</li>
+                    <li>$@price.AdditionalMileagePricePerInterval for every @price.AdditionalMileagePriceInterval mile above maximum</li>
+                </ul>
+                <div class="row align-items-center justify-content-center">
+                    <div class="d-flex gap-3">
+                        <a class="btn btn-primary btn-lg" href="#">RENT CAR</a>
+                        <a class="btn btn-primary btn-lg" asp-action="Index">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 order-1 order-md-2 d-flex justify-content-end">
+            <ul class="list-group list-group-flush text-end d-inline-block">
+                @{
+                   int index = 1;
+                }
+                @foreach (var image in Model.Images)
+                {
+                    <li class="list-group-item">
+                        <a href="@image.Link" target="_blank">Image @index</a>
+                    </li>
+                    index++;
+                }
+            </ul>
+        </div>
+    </div>
+</div>
