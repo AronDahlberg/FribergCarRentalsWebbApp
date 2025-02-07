@@ -1,10 +1,13 @@
 ﻿using FribergCarRentalsWebbApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
 {
-    public class CarRepository : ICar
+    public class CarRepository(ApplicationDbContext context) : ICar
     {
+        private readonly ApplicationDbContext _context = context;
+
         public void Add(Car car)
         {
             throw new NotImplementedException();
@@ -13,6 +16,18 @@ namespace FribergCarRentalsWebbApp.Data
         public Car? Find(Expression<Func<Car, bool>> predicate)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Car> All()
+        {
+            return _context.Cars.AsEnumerable();
+        }
+
+        public IEnumerable<Car> AllIncludingPriceAndImage()
+        {
+            return [.. _context.Cars
+                .Include(c => c.Prices)
+                .Include(c => c.Images)];
         }
 
         public Car? Get(int id)
