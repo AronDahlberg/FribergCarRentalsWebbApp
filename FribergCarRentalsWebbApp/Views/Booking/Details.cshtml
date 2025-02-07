@@ -50,13 +50,13 @@
             <div class="d-none d-md-block">
                 <div class="d-flex justify-content-end">
                     <ul class="list-group list-group-flush text-end d-inline-block w-auto">
-                        {
+                        @{
                             int indexL = 1;
                         }
-                        foreach (var image in Model.Images)
+                        @foreach (var image in Model.Images)
                         {
                             <li class="list-group-item w-auto">
-                                <a href="image.Link" target="_blank">Image indexL</a>
+                                <a href="@image.Link" target="_blank">Image @indexL</a>
                             </li>
                             indexL++;
                         }
