@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<FribergCarRentalsWebbApp.Models.Car>
-@inject FribergCarRentalsWebbApp.Services.IBookingService BookingService
+@inject FribergCarRentalsWebbApp.Services.ICarService CarService
 
 @{
     ViewData["Title"] = "All Cars";
@@ -32,7 +32,7 @@
                             }
                         </p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="text-muted">$@BookingService.GetCurrentCarPrice(car).DailyPrice/day</span>
+                            <span class="text-muted">$@CarService.GetCurrentCarPrice(car).DailyPrice/day</span>
                             <a href="#" class="btn btn-primary">See More</a>
                         </div>
                     </div>
