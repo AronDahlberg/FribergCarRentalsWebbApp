@@ -12,6 +12,11 @@ namespace FribergCarRentalsWebbApp.Services
             return _carRepository.AllIncludingPricesAndImages();
         }
 
+        public Car GetById(int id)
+        {
+            return _carRepository.GetIncludingPricesAndImages(id) ?? throw new ArgumentException("Invalid Id");
+        }
+
         public Price GetCurrentCarPrice(Car car)
         {
             ArgumentNullException.ThrowIfNull(car);
