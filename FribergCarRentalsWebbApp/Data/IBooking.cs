@@ -7,6 +7,7 @@ namespace FribergCarRentalsWebbApp.Data
     {
         Booking? Get(int id);
         Booking? Find(Expression<Func<Booking, bool>> predicate);
+        IEnumerable<Booking> All();
         void Add(Booking booking);
         void Update(Booking booking);
         void Save();

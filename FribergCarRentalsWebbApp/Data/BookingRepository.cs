@@ -1,13 +1,21 @@
 ﻿using FribergCarRentalsWebbApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
 {
-    public class BookingRepository : IBooking
+    public class BookingRepository(ApplicationDbContext context) : IBooking
     {
+        private readonly ApplicationDbContext _context = context;
+
         public void Add(Booking booking)
         {
-            throw new NotImplementedException();
+            _context.Add(booking);
+        }
+
+        public IEnumerable<Booking> All()
+        {
+            return _context.Bookings.AsEnumerable();
         }
 
         public Booking? Find(Expression<Func<Booking, bool>> predicate)
@@ -17,12 +25,12 @@ namespace FribergCarRentalsWebbApp.Data
 
         public Booking? Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Bookings.FirstOrDefault(b => b.Id == id);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public void Update(Booking booking)
