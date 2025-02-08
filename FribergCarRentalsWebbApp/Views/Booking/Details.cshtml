@@ -5,6 +5,10 @@
     ViewData["Title"] = "Car Details";
 
     Price price = CarService.GetCurrentCarPrice(Model);
+
+    bool userIsCustomer = (bool)(Context.Items["UserCustomer"] ?? false);
+
+    bool userIsAdmin = (bool)(Context.Items["UserAdmin"] ?? false);
 }
 
 <div class="container mt-5">
@@ -22,8 +26,16 @@
                             <li>$@price.AdditionalMileagePricePerInterval for every @price.AdditionalMileagePriceInterval mile above limit</li>
                         </ul>
                         <div class="row align-items-center justify-content-center">
-                            <div class="d-flex gap-5">
-                                <a class="btn btn-primary btn-lg" href="#">Rent Car</a>
+                            <div class="d-flex gap-4 mt-3">
+                                @if (!userIsCustomer && !userIsAdmin)
+                                {
+                                    <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Rent Car</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bookingCalendarModal">Rent Car</a>
+                                }
+
                                 <a class="btn btn-secondary btn-lg" asp-action="Index">Back</a>
                             </div>
                         </div>
@@ -70,3 +82,5 @@
         </div>
     </div>
 </div>
+
+@await Html.PartialAsync("~/Views/Shared/_BookingCalendar.cshtml", Model)

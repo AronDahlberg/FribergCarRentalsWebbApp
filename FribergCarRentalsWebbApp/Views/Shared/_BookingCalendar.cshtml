@@ -1,0 +1,57 @@
+﻿@model FribergCarRentalsWebbApp.Models.Car
+@inject FribergCarRentalsWebbApp.Services.IBookingService BookingService
+@inject FribergCarRentalsWebbApp.Services.ICarService CarService
+@using Newtonsoft.Json;
+@using System.Globalization;
+@{
+    Price price = CarService.GetCurrentCarPrice(Model);
+    var dailyPrice = price.DailyPrice;
+
+    var bookedRanges = BookingService.GetUnavailableDateRanges(Model.Id);
+
+    // Convert to an anonymous object for JSON output.
+    var unavailableList = bookedRanges.Select(r => new
+    {
+        start = r.Item1.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture),
+        end = r.Item2.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
+    }).ToList();
+    var unavailableJson = JsonConvert.SerializeObject(unavailableList);
+}
+
+<!-- Pass necessary data to JavaScript -->
+<script type="text/javascript">
+    var dailyPrice = @dailyPrice;
+    var unavailableRanges = @Html.Raw(unavailableJson);
+</script>
+
+<!-- Bootstrap 5 Modal -->
+<div class="modal fade" id="bookingCalendarModal" tabindex="-1" aria-labelledby="bookingCalendarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingCalendarModalLabel">Select Rental Dates</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- The form posts to the Book action in BookingController -->
+                <form id="bookingForm" asp-controller="Booking" asp-action="Book" method="post">
+                    <div class="mb-3">
+                        <label for="dateRange" class="form-label">Choose Dates</label>
+                        <input type="text" class="form-control" id="dateRange" name="dateRange" readonly />
+                        <p class="mt-4">Total price: <span class="fw-bold" id="totalPriceDisplay">$@dailyPrice</span></p>
+                    </div>
+                    <!-- Hidden fields for the booking details -->
+                    <input type="hidden" id="pickupDateTime" name="pickupDateTime" />
+                    <input type="hidden" id="dropoffDateTime" name="dropoffDateTime" />
+                    <input type="hidden" id="carId" name="carId" value="@Model.Id" />
+                    <input type="hidden" id="totalPrice" name="totalPrice" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <!-- This button submits the bookingForm -->
+                <button type="submit" form="bookingForm" class="btn btn-primary">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+</div>
