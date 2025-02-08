@@ -4,4 +4,25 @@
     ViewData["Title"] = "Booking Confirmation";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container d-flex flex-column align-items-center" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
+    <div>
+        <h1>@ViewData["Title"]</h1>
+        <hr style="border: none; border-top: 1px solid #888; margin: 3rem 0;">
+    </div>
+    <ul>
+        <li class="mb-2">Booking Creation: @Model.BookingCreation</li>
+        <li class="mb-2">Car booked: @Model.Car.Name</li>
+        <li class="mb-2">Car Pick-up: @Model.PickupDateTime</li>
+        <li class="mb-2">Car Drop-off: @Model.DropoffDateTime</li>
+        <li class="mb-2">Customer Email: @Model.CustomerAccount.Email</li>
+        <li class="mb-2">Total Price: $@Model.Payments?.FirstOrDefault(p => p.TypeOfPayment == FribergCarRentalsWebbApp.Common.PaymentType.Booking)?.PaymentAmount <span class="text-muted">(excluding fees)</span></li>
+    </ul>
+    <div class="row align-items-center mt-4">
+        <div class="col d-flex align-items-center justify-content-center">
+            <div class="d-flex gap-5">
+                <a class="btn btn-primary btn-lg me-5" asp-controller="Home" asp-action="Index">Home</a>
+                <a class="btn btn-primary btn-lg ms-5" asp-controller="Account" asp-action="Index">My Account</a>
+            </div>
+        </div>
+    </div>
+</div>
