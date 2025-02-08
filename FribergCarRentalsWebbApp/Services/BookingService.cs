@@ -9,7 +9,7 @@ namespace FribergCarRentalsWebbApp.Services
 
         public Booking? GetById(int id)
         {
-            return _bookingRepository.Get(id);
+            return _bookingRepository.GetIncludingAll(id);
         }
 
         /// <summary>
