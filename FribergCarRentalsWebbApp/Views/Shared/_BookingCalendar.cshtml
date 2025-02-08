@@ -6,6 +6,7 @@
 @{
     Price price = CarService.GetCurrentCarPrice(Model);
     var dailyPrice = price.DailyPrice;
+    var dailyMileage = price.AllowedDailyMileage;
 
     var bookedRanges = BookingService.GetUnavailableDateRanges(Model.Id);
 
@@ -21,12 +22,13 @@
 <!-- Pass necessary data to JavaScript -->
 <script type="text/javascript">
     var dailyPrice = @dailyPrice;
+    var dailyMileage = @dailyMileage;
     var unavailableRanges = @Html.Raw(unavailableJson);
 </script>
 
 <!-- Bootstrap 5 Modal -->
 <div class="modal fade" id="bookingCalendarModal" tabindex="-1" aria-labelledby="bookingCalendarModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="bookingCalendarModalLabel">Select Rental Dates</h5>
@@ -39,6 +41,8 @@
                         <label for="dateRange" class="form-label">Choose Dates</label>
                         <input type="text" class="form-control" id="dateRange" name="dateRange" readonly />
                         <p class="mt-4">Total price: <span class="fw-bold" id="totalPriceDisplay">$@dailyPrice</span></p>
+                        <p class="mt-3">Total allowed mileage: <span class="fw-bold" id="totalMileageDisplay">@dailyMileage miles</span></p>
+                        <p class="mt-3">Additional $@price.AdditionalMileagePricePerInterval will be charged for every @price.AdditionalMileagePriceInterval mile beyond allowance</p>
                     </div>
                     <!-- Hidden fields for the booking details -->
                     <input type="hidden" id="pickupDateTime" name="pickupDateTime" />

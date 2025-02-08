@@ -64,5 +64,6 @@
         $('#totalPrice').val(totalPrice);
 
         $('#totalPriceDisplay').text('$' + totalPrice);
+        $('#totalMileageDisplay').text(dailyMileage * days);
     });
 });
