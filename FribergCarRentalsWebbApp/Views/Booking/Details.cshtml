@@ -8,59 +8,63 @@
 }
 
 <div class="container mt-5">
-    <h1>@Model.Name</h1>
-    <hr style="border: none; border-top: 1px solid #888; margin: 3rem 0;">
-    <div class="row">
-        <div class="col-md-8 order-2 order-md-1">
-            <div>
-                <p style="margin-top: 8px">@Model.Description</p>
-                <ul class="list-unstyled">
-                    <li>$@price.DailyPrice per day</li>
-                    <li>@price.AllowedDailyMileage miles per day</li>
-                    <li>$@price.AdditionalMileagePricePerInterval for every @price.AdditionalMileagePriceInterval mile above limit</li>
-                </ul>
-                <div class="row align-items-center justify-content-center">
-                    <div class="d-flex gap-5">
-                        <a class="btn btn-primary btn-lg" href="#">Rent Car</a>
-                        <a class="btn btn-secondary btn-lg" asp-action="Index">Back</a>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <h1>@Model.Name</h1>
+            <hr style="border: none; border-top: 1px solid #888; margin: 3rem 0;">
+            <div class="row">
+                <div class="col-md-8 order-2 order-md-1">
+                    <div>
+                        <p style="margin-top: 8px">@Model.Description</p>
+                        <ul class="list-unstyled">
+                            <li>$@price.DailyPrice per day</li>
+                            <li>@price.AllowedDailyMileage miles per day</li>
+                            <li>$@price.AdditionalMileagePricePerInterval for every @price.AdditionalMileagePriceInterval mile above limit</li>
+                        </ul>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="d-flex gap-5">
+                                <a class="btn btn-primary btn-lg" href="#">Rent Car</a>
+                                <a class="btn btn-secondary btn-lg" asp-action="Index">Back</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-md-4 order-1 order-md-2">
+                <div class="col-md-4 order-1 order-md-2">
 
-            <!-- Visible on smaller screens -->
-            <div class="d-md-none">
-                <div class="row row-cols-4 g-2 mb-4 ms-3 me-3">
-                    @{
-                        int indexS = 1;
-                    }
-                    @foreach (var image in Model.Images)
-                    {
-                        <div class="col">
-                            <a href="@image.Link" target="_blank" class="d-block">Image @indexS</a>
+                    <!-- Visible on smaller screens -->
+                    <div class="d-md-none">
+                        <div class="row row-cols-4 g-2 mb-4 ms-3 me-3">
+                            @{
+                            int indexS = 1;
+                            }
+                            @foreach (var image in Model.Images)
+                            {
+                            <div class="col">
+                                <a href="@image.Link" target="_blank" class="d-block">Image @indexS</a>
+                            </div>
+                            indexS++;
+                            }
                         </div>
-                        indexS++;
-                    }
-                </div>
-            </div>
+                    </div>
 
-            <!-- Visible on larger screens -->
-            <div class="d-none d-md-block">
-                <div class="d-flex justify-content-end">
-                    <ul class="list-group list-group-flush text-end d-inline-block w-auto">
-                        @{
-                            int indexL = 1;
-                        }
-                        @foreach (var image in Model.Images)
-                        {
-                            <li class="list-group-item w-auto">
-                                <a href="@image.Link" target="_blank">Image @indexL</a>
-                            </li>
-                            indexL++;
-                        }
-                    </ul>
+                    <!-- Visible on larger screens -->
+                    <div class="d-none d-md-block">
+                        <div class="d-flex justify-content-end">
+                            <ul class="list-group list-group-flush text-end d-inline-block w-auto">
+                                @{
+                                int indexL = 1;
+                                }
+                                @foreach (var image in Model.Images)
+                                {
+                                <li class="list-group-item w-auto">
+                                    <a href="@image.Link" target="_blank">Image @indexL</a>
+                                </li>
+                                indexL++;
+                                }
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
