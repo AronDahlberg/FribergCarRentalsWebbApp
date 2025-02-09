@@ -9,9 +9,10 @@ namespace FribergCarRentalsWebbApp.Controllers
     /// For customer accounts
     /// </summary>
     /// <param name="AccountService"></param>
-    public class AccountController(IAccountService AccountService) : Controller
+    public class AccountController(IAccountService AccountService, IAuthCookieService authCookieService) : Controller
     {
         private readonly IAccountService _AccountService = AccountService;
+        private readonly IAuthCookieService _authCookieService = authCookieService;
 
         public IActionResult Index()
         {
@@ -40,7 +41,7 @@ namespace FribergCarRentalsWebbApp.Controllers
                 return Unauthorized("Invalid credentials");
             }
 
-            CreateNonAdminAuthCookie(user);
+            _authCookieService.CreateCustomerAuthCookie(user);
 
             return Json(new { success = true, message = "Login successful." });
         }
@@ -60,7 +61,7 @@ namespace FribergCarRentalsWebbApp.Controllers
                 return StatusCode(500, "Unkown error");
             }
 
-            CreateNonAdminAuthCookie(user);
+            _authCookieService.CreateCustomerAuthCookie(user);
 
             return Json(new { success = true, message = "Signup successful." });
         }
@@ -98,23 +99,10 @@ namespace FribergCarRentalsWebbApp.Controllers
             int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
             Customer user = _AccountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
 
+            _authCookieService.DeleteUserAuthCookie();
             _AccountService.DeleteCustomerAccount(user);
 
             return Json(new { success = true, redirectUrl = Url.Action("Index", "Home"), message = "Successfully deleted account." });
-        }
-
-        private void CreateNonAdminAuthCookie(Customer user)
-        {
-            // Create a cookie with format: "UserId|IsAdmin"
-            bool isAdmin = false;
-            string cookieValue = $"{user.Id}|{isAdmin.ToString().ToLower()}";
-            CookieOptions cookieOptions = new()
-            {
-                HttpOnly = true,
-                Secure = Request.IsHttps
-                // Session cookie: no set expiration.
-            };
-            Response.Cookies.Append("UserAuth", cookieValue, cookieOptions);
         }
     }
 }

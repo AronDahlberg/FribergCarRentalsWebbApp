@@ -13,17 +13,23 @@ namespace FribergCarRentalsWebbApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(new ConfigurationBuilder()
                                                                                                     .AddJsonFile("appsettings.json")
                                                                                                     .Build()
                                                                                                     .GetSection("ConnectionStrings")["FribergCarRentals"]));
+
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services.AddScoped<IAccount, AccountRepository>();
             builder.Services.AddScoped<IBooking, BookingRepository>();
             builder.Services.AddScoped<ICar,  CarRepository>();
             builder.Services.AddScoped<IPrice, PriceRepository>();
+
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
+            builder.Services.AddScoped<IAuthCookieService, AuthCookieService>();
 
             var app = builder.Build();
 
