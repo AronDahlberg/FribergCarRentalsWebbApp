@@ -100,7 +100,7 @@ namespace FribergCarRentalsWebbApp.Controllers
 
             _AccountService.DeleteCustomerAccount(user);
 
-            return Json(new { success = true, message = "Successfully deleted user." });
+            return Json(new { success = true, redirectUrl = Url.Action("Index", "Home"), message = "Successfully deleted account." });
         }
 
         private void CreateNonAdminAuthCookie(Customer user)
