@@ -67,7 +67,7 @@ namespace FribergCarRentalsWebbApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignOut()
+        public ActionResult LogOut()
         {
             _authCookieService.DeleteUserAuthCookie();
 

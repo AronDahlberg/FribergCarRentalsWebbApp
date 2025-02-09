@@ -2,7 +2,7 @@
     $("#signOutButton").click(function () {
 
         $.ajax({
-            url: "/Account/SignOut",
+            url: "/Account/LogOut",
             type: "POST",
             success: function (response) {
                 if (response.success) {
