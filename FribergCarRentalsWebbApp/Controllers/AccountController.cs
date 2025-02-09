@@ -92,6 +92,17 @@ namespace FribergCarRentalsWebbApp.Controllers
             return Json(new { success = true, message = "Successfully changed password." });
         }
 
+        [HttpPost]
+        public ActionResult DeleteAccount()
+        {
+            int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
+            Customer user = _AccountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+
+            _AccountService.DeleteCustomerAccount(user);
+
+            return Json(new { success = true, message = "Successfully deleted user." });
+        }
+
         private void CreateNonAdminAuthCookie(Customer user)
         {
             // Create a cookie with format: "UserId|IsAdmin"
