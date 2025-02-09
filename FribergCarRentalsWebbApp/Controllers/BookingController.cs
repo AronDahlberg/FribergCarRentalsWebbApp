@@ -25,6 +25,14 @@ namespace FribergCarRentalsWebbApp.Controllers
             return View(car);
         }
 
+        [HttpGet]
+        public IActionResult BookingConfirmation(int id)
+        {
+            Booking booking = _bookingService.EagerGetById(id) ?? throw new KeyNotFoundException($"Could not find booking with id: {id}");
+
+            return View(booking);
+        }
+
         [HttpPost]
         public IActionResult Book(int carId, string totalPrice, string pickupDateTime, string dropoffDateTime)
         {
@@ -56,12 +64,22 @@ namespace FribergCarRentalsWebbApp.Controllers
             return RedirectToAction("BookingConfirmation", new { id = booking.Id });
         }
 
-        [HttpGet]
-        public IActionResult BookingConfirmation(int id)
+        [HttpPost]
+        public IActionResult CancelBooking(int id)
         {
+            int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
+            Customer customer = _accountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+
             Booking booking = _bookingService.EagerGetById(id) ?? throw new KeyNotFoundException($"Could not find booking with id: {id}");
-            
-            return View(booking);
+
+            if (customer != booking.CustomerAccount)
+            {
+                return Unauthorized();
+            }
+
+            _bookingService.CancelBooking(booking);
+
+            return Json(new { success = true, message = "Successfully cancelled booking." });
         }
     }
 }
