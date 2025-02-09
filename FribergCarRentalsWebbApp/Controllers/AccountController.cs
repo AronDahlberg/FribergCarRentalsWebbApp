@@ -67,6 +67,14 @@ namespace FribergCarRentalsWebbApp.Controllers
         }
 
         [HttpPost]
+        public ActionResult SignOut()
+        {
+            _authCookieService.DeleteUserAuthCookie();
+
+            return Json(new { success = true, redirectUrl = Url.Action("Index", "Home"), message = "Successfully signed out." });
+        }
+
+        [HttpPost]
         public ActionResult ChangeEmail(string email)
         {
             int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
