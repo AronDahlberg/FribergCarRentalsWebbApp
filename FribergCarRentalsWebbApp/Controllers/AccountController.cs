@@ -105,7 +105,7 @@ namespace FribergCarRentalsWebbApp.Controllers
         public ActionResult DeleteAccount()
         {
             int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
-            Customer user = _accountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+            Customer user = _accountService.EagerGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
 
             _authCookieService.DeleteUserAuthCookie();
             _accountService.DeleteCustomerAccount(user);

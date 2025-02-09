@@ -1,11 +1,13 @@
 ﻿using FribergCarRentalsWebbApp.Data;
 using FribergCarRentalsWebbApp.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FribergCarRentalsWebbApp.Services
 {
-    public class AccountService(IAccount accountRepository) : IAccountService
+    public class AccountService(IAccount accountRepository, IBookingService bookingService) : IAccountService
     {
         private readonly IAccount _accountRepository = accountRepository;
+        private readonly IBookingService _bookingService = bookingService;
 
         public Customer? AuthenticateCustomerAccount(string email, string password)
         {
@@ -100,6 +102,14 @@ namespace FribergCarRentalsWebbApp.Services
             customer.DeletionDate = DateTime.UtcNow;
             customer.Email = null;
             customer.Password = null;
+
+            if (customer.Bookings != null)
+            {
+                foreach (var booking in customer.Bookings)
+                {
+                    _bookingService.CancelBooking(booking);
+                } 
+            }
 
             _accountRepository.Update(customer);
             _accountRepository.Save();
