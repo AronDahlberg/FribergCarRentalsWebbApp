@@ -30,6 +30,13 @@ namespace FribergCarRentalsWebbApp.Controllers
         {
             Booking booking = _bookingService.EagerGetById(id) ?? throw new KeyNotFoundException($"Could not find booking with id: {id}");
 
+            int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Cannot create booking without available customer id"));
+
+            if (userId != booking.CustomerAccount.Id)
+            {
+                return Unauthorized();
+            }
+
             return View(booking);
         }
 
