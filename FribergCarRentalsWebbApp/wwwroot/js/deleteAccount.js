@@ -2,7 +2,7 @@
     $("#deleteAccountButton").click(function () {
 
         $.ajax({
-            url: "/Account/ChangeEmail",
+            url: "/Account/DeleteAccount",
             type: "POST",
             data: formData,
             dataType: "json",
