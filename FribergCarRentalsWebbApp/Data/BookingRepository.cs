@@ -44,7 +44,7 @@ namespace FribergCarRentalsWebbApp.Data
 
         public void Update(Booking booking)
         {
-            throw new NotImplementedException();
+            _context.Update(booking);
         }
     }
 }
