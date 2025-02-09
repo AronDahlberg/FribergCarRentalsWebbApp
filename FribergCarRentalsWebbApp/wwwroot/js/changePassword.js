@@ -19,7 +19,7 @@
                 success: function (response) {
                     if (response.success) {
                         $("#changePasswordModal").modal("hide");
-                        alert("Succesfully changed password.")
+                        alert("Succesfully changed password.");
                     } else {
                         console.error("Password change error", response);
                         alert("Error: " + response.message);
