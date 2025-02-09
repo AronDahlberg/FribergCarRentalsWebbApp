@@ -5,9 +5,9 @@
 
     var now = DateTime.UtcNow;
 
-    var previousBookings = Model.Bookings?.Where(b => now > b.DropoffDateTime).ToList() ?? [];
-    var currentBookings = Model.Bookings?.Where(b => now >= b.PickupDateTime && now <= b.DropoffDateTime).ToList() ?? [];
-    var upcomingBookings = Model.Bookings?.Where(b => now < b.PickupDateTime).ToList() ?? [];
+    var previousBookings = Model.Bookings?.Where(b => now > b.DropoffDateTime && !b.Invalidated).ToList() ?? [];
+    var currentBookings = Model.Bookings?.Where(b => now >= b.PickupDateTime && now <= b.DropoffDateTime && !b.Invalidated).ToList() ?? [];
+    var upcomingBookings = Model.Bookings?.Where(b => now < b.PickupDateTime && !b.Invalidated).ToList() ?? [];
 }
 
 <div class="container my-4">
