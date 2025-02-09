@@ -61,5 +61,20 @@ namespace FribergCarRentalsWebbApp.Services
         {
             return _accountRepository.EagerGet(id);
         }
+
+        public void ChangeCustomerEmail(Customer customer, string email)
+        {
+            ArgumentNullException.ThrowIfNull(customer);
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("Email cannot be empty.", nameof(email));
+            }
+
+            customer.Email = email;
+
+            _accountRepository.Update(customer);
+            _accountRepository.Save();
+        }
     }
 }

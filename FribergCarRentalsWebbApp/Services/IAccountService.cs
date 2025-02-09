@@ -11,6 +11,7 @@ namespace FribergCarRentalsWebbApp.Services
         Customer? CreateCustomerAccount(string email, string password);
         bool CustomerEmailExists(string email);
         string? GetCustomerEmail(int id);
+        void ChangeCustomerEmail(Customer customer, string email);
         bool ConfirmAccountAsCustomer(int id);
         bool ConfirmAccountAsAdministrator(int id);
     }
