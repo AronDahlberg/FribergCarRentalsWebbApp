@@ -25,6 +25,7 @@ namespace FribergCarRentalsWebbApp.Services
                 Password = password,
                 CreationDate = DateTime.UtcNow,
                 Deleted = false,
+                Bookings = []
             };
 
             _accountRepository.Add(customer);
