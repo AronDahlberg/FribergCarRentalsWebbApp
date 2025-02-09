@@ -12,6 +12,9 @@
     if (userIsCustomer)
     {
         userEmail = AccountService.GetCustomerEmail(userId);
+    } else if (userIsAdmin)
+    {
+        userEmail = AccountService.GetAdministratorEmail(userId);
     }
 
     var cookiesAccepted = Context.Request.Cookies["cookiesAccepted"];
