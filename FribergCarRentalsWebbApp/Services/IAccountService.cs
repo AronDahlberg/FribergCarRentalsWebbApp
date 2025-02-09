@@ -5,6 +5,7 @@ namespace FribergCarRentalsWebbApp.Services
     public interface IAccountService
     {
         Customer? LazyGetCustomerById(int id);
+        Customer? EagerGetCustomerById(int id);
         Customer? AuthenticateCustomerAccount(string email, string password);
         Administrator? AuthenticateAdministratorAccount(string email, string password);
         Customer? CreateCustomerAccount(string email, string password);

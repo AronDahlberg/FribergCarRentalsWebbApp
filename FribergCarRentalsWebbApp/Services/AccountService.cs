@@ -55,5 +55,10 @@ namespace FribergCarRentalsWebbApp.Services
         {
             return _accountRepository.Get(id);
         }
+
+        public Customer? EagerGetCustomerById(int id)
+        {
+            return _accountRepository.EagerGet(id);
+        }
     }
 }
