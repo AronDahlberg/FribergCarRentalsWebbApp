@@ -25,7 +25,8 @@ namespace FribergCarRentalsWebbApp.Data
         public Customer? EagerGet(int id)
         {
             return _context.Customers
-                    .Include(c => c.Bookings)
+                    .Include(c => c.Bookings)!
+                        .ThenInclude(b => b.Car)
                     .FirstOrDefault(c => c.Id == id);
         }
 
