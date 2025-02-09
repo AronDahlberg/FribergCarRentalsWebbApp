@@ -1,4 +1,5 @@
 ﻿using FribergCarRentalsWebbApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace FribergCarRentalsWebbApp.Data
@@ -19,6 +20,13 @@ namespace FribergCarRentalsWebbApp.Data
         public Customer? Get(int id)
         {
             return _context.Customers.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Customer? EagerGet(int id)
+        {
+            return _context.Customers
+                    .Include(c => c.Bookings)
+                    .FirstOrDefault(c => c.Id == id);
         }
 
         public Customer? Find(Expression<Func<Customer, bool>> predicate)

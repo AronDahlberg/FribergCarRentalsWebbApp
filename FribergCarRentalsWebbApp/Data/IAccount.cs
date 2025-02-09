@@ -6,6 +6,7 @@ namespace FribergCarRentalsWebbApp.Data
     public interface IAccount
     {
         Customer? Get(int id);
+        Customer? EagerGet(int id);
         Customer? Find(Expression<Func<Customer, bool>> predicate);
         Administrator? FindAdministrator(Expression<Func<Administrator, bool>> predicate);
         Administrator? GetAdministratorById(int id);
