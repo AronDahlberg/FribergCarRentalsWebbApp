@@ -51,7 +51,7 @@ namespace FribergCarRentalsWebbApp.Services
             return _accountRepository.GetAdministratorById(id) != null;
         }
 
-        public Customer? GetCustomerById(int id)
+        public Customer? LazyGetCustomerById(int id)
         {
             return _accountRepository.Get(id);
         }

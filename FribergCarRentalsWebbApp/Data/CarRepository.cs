@@ -23,7 +23,7 @@ namespace FribergCarRentalsWebbApp.Data
             return _context.Cars.AsEnumerable();
         }
 
-        public IEnumerable<Car> AllIncludingPricesAndImages()
+        public IEnumerable<Car> EagerAll()
         {
             return [.. _context.Cars
                 .Include(c => c.Prices)
@@ -35,7 +35,7 @@ namespace FribergCarRentalsWebbApp.Data
             return _context.Cars.FirstOrDefault(c => c.Id == id);
         }
 
-        public Car? GetIncludingPricesAndImages(int id)
+        public Car? EagerGet(int id)
         {
             return _context.Cars
                     .Include(c => c.Prices)

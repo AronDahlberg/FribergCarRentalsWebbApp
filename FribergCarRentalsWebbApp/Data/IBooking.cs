@@ -6,7 +6,7 @@ namespace FribergCarRentalsWebbApp.Data
     public interface IBooking
     {
         Booking? Get(int id);
-        Booking? GetIncludingAll(int id);
+        Booking? EagerGet(int id);
         Booking? Find(Expression<Func<Booking, bool>> predicate);
         IEnumerable<Booking> All();
         void Add(Booking booking);

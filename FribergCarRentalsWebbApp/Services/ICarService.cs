@@ -4,8 +4,8 @@ namespace FribergCarRentalsWebbApp.Services
 {
     public interface ICarService
     {
-        IEnumerable<Car> GetAllCars();
-        Car GetById(int id);
+        IEnumerable<Car> EagerGetAllCars();
+        Car? EagerGetById(int id);
         Price GetCurrentCarPrice(Car car);
     }
 }

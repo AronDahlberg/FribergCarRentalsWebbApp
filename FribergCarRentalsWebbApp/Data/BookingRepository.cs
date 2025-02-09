@@ -28,7 +28,7 @@ namespace FribergCarRentalsWebbApp.Data
             return _context.Bookings.FirstOrDefault(b => b.Id == id);
         }
 
-        public Booking? GetIncludingAll(int id)
+        public Booking? EagerGet(int id)
         {
             return _context.Bookings
                     .Include(b => b.Car)

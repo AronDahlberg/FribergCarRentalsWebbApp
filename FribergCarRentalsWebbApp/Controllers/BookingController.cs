@@ -13,23 +13,25 @@ namespace FribergCarRentalsWebbApp.Controllers
 
         public IActionResult Index()
         {
-            var cars = _carService.GetAllCars();
+            var cars = _carService.EagerGetAllCars();
 
             return View(cars);
         }
 
         public IActionResult Details(int id)
         {
-            return View(_carService.GetById(id));
+            Car car = _carService.EagerGetById(id) ?? throw new KeyNotFoundException($"Could not find car with id: {id}");
+
+            return View(car);
         }
 
         [HttpPost]
         public IActionResult Book(int carId, string totalPrice, string pickupDateTime, string dropoffDateTime)
         {
-            Car car = _carService.GetById(carId);
+            Car car = _carService.EagerGetById(carId) ?? throw new KeyNotFoundException($"Could not find car with id: {carId}");
 
             int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Cannot create booking without available customer id"));
-            Customer customer = _accountService.GetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+            Customer customer = _accountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
 
             Booking booking = new()
             {
@@ -57,7 +59,7 @@ namespace FribergCarRentalsWebbApp.Controllers
         [HttpGet]
         public IActionResult BookingConfirmation(int id)
         {
-            Booking booking = _bookingService.GetById(id) ?? throw new KeyNotFoundException($"Could not find booking with id: {id}");
+            Booking booking = _bookingService.EagerGetById(id) ?? throw new KeyNotFoundException($"Could not find booking with id: {id}");
             
             return View(booking);
         }

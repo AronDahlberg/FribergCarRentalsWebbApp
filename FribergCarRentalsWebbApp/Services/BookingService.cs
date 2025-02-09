@@ -7,9 +7,9 @@ namespace FribergCarRentalsWebbApp.Services
     {
         private readonly IBooking _bookingRepository = bookingRepository;
 
-        public Booking? GetById(int id)
+        public Booking? EagerGetById(int id)
         {
-            return _bookingRepository.GetIncludingAll(id);
+            return _bookingRepository.EagerGet(id);
         }
 
         /// <summary>

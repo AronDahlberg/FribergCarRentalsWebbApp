@@ -7,14 +7,14 @@ namespace FribergCarRentalsWebbApp.Services
     {
         private readonly ICar _carRepository = carRepository;
 
-        public IEnumerable<Car> GetAllCars()
+        public IEnumerable<Car> EagerGetAllCars()
         {
-            return _carRepository.AllIncludingPricesAndImages();
+            return _carRepository.EagerAll();
         }
 
-        public Car GetById(int id)
+        public Car? EagerGetById(int id)
         {
-            return _carRepository.GetIncludingPricesAndImages(id) ?? throw new ArgumentException("Invalid Id");
+            return _carRepository.EagerGet(id);
         }
 
         public Price GetCurrentCarPrice(Car car)
