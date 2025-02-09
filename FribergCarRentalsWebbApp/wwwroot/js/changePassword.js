@@ -27,7 +27,7 @@
                 },
                 error: function (xhr, status, error) {
                     if (xhr.status === 401) {
-                        alert("Invalid password.")
+                        alert("Invalid password.");
                         $("#currentPassword").val('');
                     } else {
                         console.error("Password change error", xhr, status, error);
