@@ -76,6 +76,22 @@ namespace FribergCarRentalsWebbApp.Controllers
             return Json(new { success = true, message = "Successfully changed email." });
         }
 
+        [HttpPost]
+        public ActionResult ChangePassword(string currentPassword, string newPassword)
+        {
+            int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
+            Customer user = _AccountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+
+            if (user.Password != currentPassword)
+            {
+                return Unauthorized("Invalid credentials");
+            }
+
+            _AccountService.ChangeCustomerPassword(user, newPassword);
+
+            return Json(new { success = true, message = "Successfully changed password." });
+        }
+
         private void CreateNonAdminAuthCookie(Customer user)
         {
             // Create a cookie with format: "UserId|IsAdmin"
