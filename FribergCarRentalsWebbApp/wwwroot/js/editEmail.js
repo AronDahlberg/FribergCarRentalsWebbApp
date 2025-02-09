@@ -1,12 +1,16 @@
 ﻿$(document).ready(function () {
-    $("#editEmailModal .btn-primary").click(function () {
-        var newEmail = $("#emailInput").val();
+    $("#editEmailForm").submit(function (e) {
+        e.preventDefault();
+
+        var formData = {
+            email: $("#emailInput").val()
+        };
 
         $.ajax({
             url: "/Account/ChangeEmail",
             type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ email: newEmail }),
+            data: formData,
+            dataType: "json",
             success: function (response) {
                 if (response.success) {
                     $("#editEmailModal").modal("hide");
