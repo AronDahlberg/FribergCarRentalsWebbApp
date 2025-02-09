@@ -8,10 +8,10 @@ namespace FribergCarRentalsWebbApp.Controllers
     /// <summary>
     /// For customer accounts
     /// </summary>
-    /// <param name="AccountService"></param>
-    public class AccountController(IAccountService AccountService, IAuthCookieService authCookieService) : Controller
+    /// <param name="accountService"></param>
+    public class AccountController(IAccountService accountService, IAuthCookieService authCookieService) : Controller
     {
-        private readonly IAccountService _AccountService = AccountService;
+        private readonly IAccountService _accountService = accountService;
         private readonly IAuthCookieService _authCookieService = authCookieService;
 
         public IActionResult Index()
@@ -22,7 +22,7 @@ namespace FribergCarRentalsWebbApp.Controllers
 
             if (userIsCustomer)
             {
-                Customer customer = _AccountService.EagerGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id. {userId}");
+                Customer customer = _accountService.EagerGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id. {userId}");
 
                 return View(customer);
             }
@@ -35,7 +35,7 @@ namespace FribergCarRentalsWebbApp.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            Customer? user = _AccountService.AuthenticateCustomerAccount(email, password);
+            Customer? user = _accountService.AuthenticateCustomerAccount(email, password);
             if (user == null)
             {
                 return Unauthorized("Invalid credentials");
@@ -49,12 +49,12 @@ namespace FribergCarRentalsWebbApp.Controllers
         [HttpPost]
         public ActionResult Signup(string email, string password)
         {
-            if (_AccountService.CustomerEmailExists(email))
+            if (_accountService.CustomerEmailExists(email))
             {
                 return Conflict("Email is already in use");
             }
 
-            Customer? user = _AccountService.CreateCustomerAccount(email, password);
+            Customer? user = _accountService.CreateCustomerAccount(email, password);
 
             if (user == null)
             {
@@ -78,9 +78,9 @@ namespace FribergCarRentalsWebbApp.Controllers
         public ActionResult ChangeEmail(string email)
         {
             int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
-            Customer user = _AccountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+            Customer user = _accountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
 
-            _AccountService.ChangeCustomerEmail(user, email);
+            _accountService.ChangeCustomerEmail(user, email);
 
             return Json(new { success = true, message = "Successfully changed email." });
         }
@@ -89,14 +89,14 @@ namespace FribergCarRentalsWebbApp.Controllers
         public ActionResult ChangePassword(string currentPassword, string newPassword)
         {
             int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
-            Customer user = _AccountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+            Customer user = _accountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
 
             if (user.Password != currentPassword)
             {
                 return Unauthorized("Invalid credentials");
             }
 
-            _AccountService.ChangeCustomerPassword(user, newPassword);
+            _accountService.ChangeCustomerPassword(user, newPassword);
 
             return Json(new { success = true, message = "Successfully changed password." });
         }
@@ -105,10 +105,10 @@ namespace FribergCarRentalsWebbApp.Controllers
         public ActionResult DeleteAccount()
         {
             int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
-            Customer user = _AccountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+            Customer user = _accountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
 
             _authCookieService.DeleteUserAuthCookie();
-            _AccountService.DeleteCustomerAccount(user);
+            _accountService.DeleteCustomerAccount(user);
 
             return Json(new { success = true, redirectUrl = Url.Action("Index", "Home"), message = "Successfully deleted account." });
         }
