@@ -1,5 +1,6 @@
 ﻿using FribergCarRentalsWebbApp.Data;
 using FribergCarRentalsWebbApp.Models;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace FribergCarRentalsWebbApp.Services
 {
@@ -72,6 +73,21 @@ namespace FribergCarRentalsWebbApp.Services
             }
 
             customer.Email = email;
+
+            _accountRepository.Update(customer);
+            _accountRepository.Save();
+        }
+
+        public void ChangeCustomerPassword(Customer customer, string password)
+        {
+            ArgumentNullException.ThrowIfNull(customer);
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException("Email cannot be empty.", nameof(password));
+            }
+
+            customer.Password = password;
 
             _accountRepository.Update(customer);
             _accountRepository.Save();
