@@ -15,7 +15,20 @@ namespace FribergCarRentalsWebbApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            int userId = (int)(HttpContext.Items["UserId"] ?? 0);
+
+            bool userIsCustomer = (bool)(HttpContext.Items["UserCustomer"] ?? false);
+
+            if (userIsCustomer)
+            {
+                Customer customer = _AccountService.EagerGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id. {userId}");
+
+                return View(customer);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         [HttpPost]
@@ -50,6 +63,17 @@ namespace FribergCarRentalsWebbApp.Controllers
             CreateNonAdminAuthCookie(user);
 
             return Json(new { success = true, message = "Signup successful." });
+        }
+
+        [HttpPost]
+        public ActionResult ChangeEmail(string email)
+        {
+            int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
+            Customer user = _AccountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
+
+            _AccountService.ChangeCustomerEmail(user, email);
+
+            return Json(new { success = true, message = "Successfully changed email." });
         }
 
         private void CreateNonAdminAuthCookie(Customer user)
