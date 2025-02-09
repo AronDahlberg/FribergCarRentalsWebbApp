@@ -1,17 +1,43 @@
 ﻿@{
     ViewData["Title"] = "Admin Panel";
+
+    int userId = (int)(Context.Items["UserId"] ?? 0);
 }
 
 <div class="container d-flex flex-column align-items-center" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
-    <h1>@ViewData["Title"]</h1>
-    <div class="row align-items-center">
-        <hr style="border: none; border-top: 1px solid #888; margin: 3rem 0;">
-        <div class="col d-flex align-items-center justify-content-center">
-            <div class="d-flex gap-5">
-                <a class="btn btn-primary btn-lg" asp-controller="Booking" asp-action="Index">Cars</a>
-                <a class="btn btn-primary btn-lg" asp-controller="Admin" asp-action="Customers">Customers</a>
-                <a class="btn btn-primary btn-lg" asp-controller="Admin" asp-action="Bookings">Bookings</a>
+    @if (userId != 0)
+    {
+        <h1>@ViewData["Title"]</h1>
+        <div class="row align-items-center">
+            <hr style="border: none; border-top: 1px solid #888; margin: 3rem 0;">
+            <div class="col d-flex align-items-center justify-content-center">
+                <div class="d-flex gap-5">
+                    <a class="btn btn-primary btn-lg" asp-controller="Booking" asp-action="Index">Cars</a>
+                    <a class="btn btn-primary btn-lg" asp-controller="Admin" asp-action="Customers">Customers</a>
+                    <a class="btn btn-primary btn-lg" asp-controller="Admin" asp-action="Bookings">Bookings</a>
+                </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <h2>Admin Login</h2>
+        <form id="admin-login-form">
+            <hr style="border: none; border-top: 1px solid #888; margin: 1rem 0;">
+            <div class="mb-3">
+                <label for="adminLoginEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="adminLoginEmail" name="Email" placeholder="Enter email" required>
+            </div>
+            <div class="mb-3">
+                <label for="adminLoginPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="adminLoginPassword" name="Password" placeholder="Password" required>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center">
+                <div class="d-flex gap-5">
+                    <a class="btn btn-primary btn-lg" asp-controller="Home" asp-action="Index">Home</a>
+                    <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                </div>
+            </div>
+        </form>
+    }
 </div>
