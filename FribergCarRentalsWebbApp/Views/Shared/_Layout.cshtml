@@ -47,12 +47,15 @@
 
                 @if (userIsCustomer)
                 {
-                    <!-- User Circle -->
-                    <a id="userProfile" asp-area="" asp-controller="Account" asp-action="Index"
-                       class="user-circle d-flex justify-content-center align-items-center text-decoration-none"
-                       data-bs-toggle="tooltip" data-bs-placement="left" title="@userEmail">
-                        @userEmail?.Substring(0, 1).ToUpper()
-                    </a>
+                    <div class="d-flex gap-3 gap-sm-5 align-items-center">
+                        <button type ="button" class="btn btn-outline-secondary " id="signOutButton">Sign out</button>
+                        <!-- User Circle -->
+                        <a id="userProfile" asp-area="" asp-controller="Account" asp-action="Index"
+                           class="user-circle d-flex justify-content-center align-items-center text-decoration-none me-0 me-sm-2"
+                           data-bs-toggle="tooltip" data-bs-placement="left" title="@userEmail">
+                            @userEmail?.Substring(0, 1).ToUpper()
+                        </a>
+                    </div>
                 }
 
                 @if (!userIsCustomer && !userIsAdmin)
