@@ -7,5 +7,6 @@ namespace FribergCarRentalsWebbApp.Services
         Booking? EagerGetById(int id);
         List<(DateTime, DateTime)> GetUnavailableDateRanges(int carId);
         void CreateBooking(Booking booking);
+        void CancelBooking(Booking booking);
     }
 }

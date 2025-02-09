@@ -1,4 +1,5 @@
-﻿using FribergCarRentalsWebbApp.Data;
+﻿using FribergCarRentalsWebbApp.Common;
+using FribergCarRentalsWebbApp.Data;
 using FribergCarRentalsWebbApp.Models;
 
 namespace FribergCarRentalsWebbApp.Services
@@ -37,10 +38,40 @@ namespace FribergCarRentalsWebbApp.Services
             return unavailableRanges;
         }
 
-
         public void CreateBooking(Booking booking)
         {
             _bookingRepository.Add(booking);
+            _bookingRepository.Save();
+        }
+
+        public void CancelBooking(Booking booking)
+        {
+            ArgumentNullException.ThrowIfNull(booking, nameof(booking));
+
+            if (booking.PickupDateTime < DateTime.UtcNow)
+            {
+                throw new InvalidOperationException("Cannot cancel past or current bookings");
+            }
+
+            booking.Invalidated = true;
+            booking.InvalidationDateTime = DateTime.UtcNow;
+
+            string? bookingPayment = booking.Payments?.FirstOrDefault(p => p.TypeOfPayment == PaymentType.Booking)?.PaymentAmount;
+
+            if (bookingPayment != null)
+            {
+                Payment refundPayment = new()
+                {
+
+                    PaymentAmount = bookingPayment,
+                    TypeOfPayment = PaymentType.Refund,
+                    ConfirmationDate = DateTime.UtcNow
+                };
+
+                booking.Payments!.Add(refundPayment);
+            }
+
+            _bookingRepository.Update(booking);
             _bookingRepository.Save();
         }
     }
