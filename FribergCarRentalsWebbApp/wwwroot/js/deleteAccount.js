@@ -4,8 +4,6 @@
         $.ajax({
             url: "/Account/DeleteAccount",
             type: "POST",
-            data: formData,
-            dataType: "json",
             success: function (response) {
                 if (response.success) {
                     $("#deleteAccountModal").modal("hide");
