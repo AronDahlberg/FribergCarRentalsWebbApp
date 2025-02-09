@@ -114,5 +114,10 @@ namespace FribergCarRentalsWebbApp.Services
             _accountRepository.Update(customer);
             _accountRepository.Save();
         }
+
+        public string? GetAdministratorEmail(int id)
+        {
+            return _accountRepository.GetAdministratorById(id)?.Email;
+        }
     }
 }
