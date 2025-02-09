@@ -9,6 +9,7 @@ namespace FribergCarRentalsWebbApp.Services
         Customer? AuthenticateCustomerAccount(string email, string password);
         Administrator? AuthenticateAdministratorAccount(string email, string password);
         Customer? CreateCustomerAccount(string email, string password);
+        void DeleteCustomerAccount(Customer customer);
         bool CustomerEmailExists(string email);
         string? GetCustomerEmail(int id);
         void ChangeCustomerEmail(Customer customer, string email);

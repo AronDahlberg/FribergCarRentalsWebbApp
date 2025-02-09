@@ -1,6 +1,5 @@
 ﻿using FribergCarRentalsWebbApp.Data;
 using FribergCarRentalsWebbApp.Models;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace FribergCarRentalsWebbApp.Services
 {
@@ -88,6 +87,19 @@ namespace FribergCarRentalsWebbApp.Services
             }
 
             customer.Password = password;
+
+            _accountRepository.Update(customer);
+            _accountRepository.Save();
+        }
+
+        public void DeleteCustomerAccount(Customer customer)
+        {
+            ArgumentNullException.ThrowIfNull(customer);
+
+            customer.Deleted = true;
+            customer.DeletionDate = DateTime.UtcNow;
+            customer.Email = null;
+            customer.Password = null;
 
             _accountRepository.Update(customer);
             _accountRepository.Save();
