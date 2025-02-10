@@ -1,5 +1,6 @@
 ﻿using FribergCarRentalsWebbApp.Data;
 using FribergCarRentalsWebbApp.Models;
+using System.Security.Cryptography.Xml;
 
 namespace FribergCarRentalsWebbApp.Services
 {
@@ -58,6 +59,35 @@ namespace FribergCarRentalsWebbApp.Services
             };
 
             _carRepository.Add(car);
+            _carRepository.Save();
+        }
+
+        public void EditCar(Car car, string carName, string description, int dailyPrice, int allowedMileage, int pricePerExtraMile)
+        {
+            ArgumentNullException.ThrowIfNull(car);
+
+            Price currentPrice = GetCurrentCarPrice(car);
+
+            car.Name = carName;
+            car.Description = description;
+
+            if (currentPrice.AllowedDailyMileage != allowedMileage
+                || currentPrice.DailyPrice != dailyPrice
+                || currentPrice.AdditionalMileagePricePerInterval != pricePerExtraMile)
+            {
+                Price newPrice = new()
+                {
+                    AllowedDailyMileage = allowedMileage,
+                    DailyPrice = dailyPrice,
+                    AdditionalMileagePricePerInterval = pricePerExtraMile,
+                    AdditionalMileagePriceInterval = 1,
+                    PriceCreationDate = DateTime.UtcNow,
+                };
+
+                car.Prices.Add(newPrice); 
+            }
+            
+            _carRepository.Update(car);
             _carRepository.Save();
         }
     }

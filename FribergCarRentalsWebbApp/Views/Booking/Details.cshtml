@@ -31,9 +31,14 @@
                                 {
                                     <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginSignupModal">Rent Car</a>
                                 }
-                                else
+                                else if (userIsCustomer)
                                 {
                                     <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bookingCalendarModal">Rent Car</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#editCarInfoModal">Edit Info</a>
+                                    <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addCarImageModal">Add Image</a>
                                 }
 
                                 <a class="btn btn-secondary btn-lg" asp-action="Index">Back</a>
@@ -78,6 +83,52 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Car Info Modal -->
+    <div class="modal fade" id="editCarInfoModal" tabindex="-1" aria-labelledby="editCarInfoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="editCarInfoForm">
+                    <input type="hidden" id="editCatInfoCarId" value="@Model.Id" />
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCarInfoModalLabel">Edit Email</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="editCarInfoCarName" class="form-label">Car Name</label>
+                            <input type="text" class="form-control" id="editCarInfoCarName" value="@Model.Name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editCarInfoDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editCarInfoDescription" rows="3" required>@Model.Description</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editCarInfoDailyPrice" class="form-label">Daily Price</label>
+                            <input type="number" class="form-control" id="editCarInfoDailyPrice" value="@price.DailyPrice" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editCarInfoAllowedMileage" class="form-label">Allowed Mileage per Day</label>
+                            <input type="number" class="form-control" id="editCarInfoAllowedMileage" value="@price.AllowedDailyMileage" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editCarInfoPricePerExtraMile" class="form-label">Price for Every Mile Above Maximum</label>
+                            <input type="number" class="form-control" id="editCarInfoPricePerExtraMile" value="@price.AdditionalMileagePricePerInterval" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
