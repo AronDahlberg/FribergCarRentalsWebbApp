@@ -25,6 +25,18 @@ namespace FribergCarRentalsWebbApp.Controllers
             return View(car);
         }
 
+        public IActionResult AddCar()
+        {
+            bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
+
+            if (!userIsAdmin)
+            {
+                return Unauthorized();
+            }
+
+            return View();
+        }
+
         [HttpGet]
         public IActionResult BookingConfirmation(int id)
         {
