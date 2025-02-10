@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Create Listing";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+    <form id="createListingForm">
+        <div class="mb-3">
+            <label for="createListingCarName" class="form-label">Car Name</label>
+            <input type="text" class="form-control" id="createListingCarName" placeholder="Enter car name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="createListingDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="createListingDescription" rows="3" placeholder="Enter description" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="createListingDailyPrice" class="form-label">Daily Price</label>
+            <input type="number" class="form-control" id="createListingDailyPrice" placeholder="Enter daily price" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="createListingAllowedMileage" class="form-label">Allowed Mileage per Day</label>
+            <input type="number" class="form-control" id="createListingAllowedMileage" placeholder="Enter allowed mileage per day" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="createListingPricePerExtraMile" class="form-label">Price for Every Mile Above Maximum</label>
+            <input type="number" class="form-control" id="createListingPricePerExtraMile" placeholder="Enter price for extra mile" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Car Images</label>
+            <ul id="createListingImageLinks" class="list-group">
+                <li class="list-group-item">
+                    <input type="text" class="form-control create-listing-image-link-input" placeholder="Enter image URL and press Enter">
+                </li>
+            </ul>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-secondary me-2" asp-controller="Booking" asp-action="Index">Back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

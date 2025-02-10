@@ -25,7 +25,7 @@ namespace FribergCarRentalsWebbApp.Controllers
             return View(car);
         }
 
-        public IActionResult AddCar()
+        public IActionResult CreateListing()
         {
             bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
 
@@ -50,6 +50,21 @@ namespace FribergCarRentalsWebbApp.Controllers
             }
 
             return View(booking);
+        }
+
+        [HttpPost]
+        public IActionResult CreateListing(string carName, string description, int dailyPrice, int allowedMileage, int pricePerExtraMile, List<string> imageLinks)
+        {
+            bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
+
+            if (!userIsAdmin)
+            {
+                return Unauthorized();
+            }
+
+            _carService.AddCar(carName, description, dailyPrice, allowedMileage, pricePerExtraMile, imageLinks);
+
+            return Json(new { success = true, redirectUrl = Url.Action("Index", "Booking"), message = "Successfully created listing." });
         }
 
         [HttpPost]

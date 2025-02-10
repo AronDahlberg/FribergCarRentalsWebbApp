@@ -10,7 +10,7 @@ namespace FribergCarRentalsWebbApp.Data
 
         public void Add(Car car)
         {
-            throw new NotImplementedException();
+            _context.Add(car);
         }
 
         public Car? Find(Expression<Func<Car, bool>> predicate)
@@ -45,7 +45,7 @@ namespace FribergCarRentalsWebbApp.Data
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public void Update(Car car)
