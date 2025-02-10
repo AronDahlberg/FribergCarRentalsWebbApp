@@ -48,7 +48,7 @@
                     <span class="align-middle">Friberg Car Rentals</span>
                 </a>
 
-                @if (userIsCustomer)
+                @if (userIsCustomer || userIsAdmin)
                 {
                     <div class="d-flex gap-3 gap-sm-5 align-items-center">
                         <button type ="button" class="btn btn-outline-secondary " id="signOutButton">Sign out</button>
@@ -60,8 +60,7 @@
                         </a>
                     </div>
                 }
-
-                @if (!userIsCustomer && !userIsAdmin)
+                else
                 {
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginSignupModal">
                         Login / Signup
