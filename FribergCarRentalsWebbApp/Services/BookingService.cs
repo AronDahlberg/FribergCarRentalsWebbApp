@@ -74,5 +74,10 @@ namespace FribergCarRentalsWebbApp.Services
             _bookingRepository.Update(booking);
             _bookingRepository.Save();
         }
+
+        public IEnumerable<Booking> EagerAll()
+        {
+            return _bookingRepository.EagerAll();
+        }
     }
 }
