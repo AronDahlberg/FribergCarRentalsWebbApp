@@ -16,7 +16,7 @@ namespace FribergCarRentalsWebbApp.Services
 
         public Administrator? AuthenticateAdministratorAccount(string email, string password)
         {
-            throw new NotImplementedException();
+            return _accountRepository.FindAdministrator(a => a.Email == email && a.Password == password);
         }
 
         public Customer? CreateCustomerAccount(string email, string password)
