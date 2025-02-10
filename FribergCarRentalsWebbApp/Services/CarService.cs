@@ -90,5 +90,26 @@ namespace FribergCarRentalsWebbApp.Services
             _carRepository.Update(car);
             _carRepository.Save();
         }
+
+        public void AddImage(Car car, string imageLink)
+        {
+            ArgumentNullException.ThrowIfNull(car);
+
+            if (string.IsNullOrWhiteSpace(imageLink))
+            {
+                throw new ArgumentException("Image link cannot be empty.", nameof(imageLink));
+            }
+
+            Image image = new()
+            {
+                Link = imageLink,
+                UploadDate = DateTime.UtcNow,
+            };
+
+            car.Images.Add(image);
+
+            _carRepository.Update(car);
+            _carRepository.Save();
+        }
     }
 }

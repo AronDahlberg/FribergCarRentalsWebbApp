@@ -85,6 +85,23 @@ namespace FribergCarRentalsWebbApp.Controllers
         }
 
         [HttpPost]
+        public IActionResult AddCarImage(int carId, string imageLink)
+        {
+            bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
+
+            if (!userIsAdmin)
+            {
+                return Unauthorized();
+            }
+
+            Car car = _carService.EagerGetById(carId) ?? throw new KeyNotFoundException($"Could not find car with id: {carId}");
+
+            _carService.AddImage(car, imageLink);
+
+            return Json(new { success = true, message = "Successfully added car image." });
+        }
+
+        [HttpPost]
         public IActionResult Book(int carId, string totalPrice, string pickupDateTime, string dropoffDateTime)
         {
             Car car = _carService.EagerGetById(carId) ?? throw new KeyNotFoundException($"Could not find car with id: {carId}");
