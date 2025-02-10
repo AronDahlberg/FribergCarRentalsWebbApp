@@ -17,6 +17,19 @@ namespace FribergCarRentalsWebbApp.Data
             return _context.Customers.AsEnumerable();
         }
 
+        public IEnumerable<Customer> EagerAll()
+        {
+            return [.. _context.Customers
+                    .Include(c => c.Bookings)!
+                        .ThenInclude(b => b.Car)
+                            .ThenInclude(c => c.Images)
+                    .Include(c => c.Bookings)!
+                        .ThenInclude(b => b.Car)
+                            .ThenInclude(c => c.Prices)
+                    .Include(c => c.Bookings)!
+                        .ThenInclude(b => b.Payments)];
+        }
+
         public Customer? Get(int id)
         {
             return _context.Customers.FirstOrDefault(c => c.Id == id);

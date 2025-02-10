@@ -112,5 +112,32 @@ namespace FribergCarRentalsWebbApp.Controllers
 
             return Json(new { success = true, redirectUrl = Url.Action("Index", "Home"), message = "Successfully deleted account." });
         }
+
+        [HttpPost]
+        public ActionResult DeleteCustomer(int customerId)
+        {
+            Customer user = _accountService.EagerGetCustomerById(customerId) ?? throw new KeyNotFoundException($"Could not find customer with id: {customerId}");
+
+            _accountService.DeleteCustomerAccount(user);
+
+            return Json(new { success = true, message = "Successfully deleted customer." });
+        }
+
+        [HttpPost]
+        public ActionResult EditCustomer(int customerId, string email, string password)
+        {
+            Customer user = _accountService.EagerGetCustomerById(customerId) ?? throw new KeyNotFoundException($"Could not find customer with id: {customerId}");
+
+            if (user.Email != email)
+            {
+                _accountService.ChangeCustomerEmail(user, email);
+            }
+            if (user.Password != password)
+            {
+                _accountService.ChangeCustomerPassword(user, password);
+            }
+
+            return Json(new { success = true, message = "Successfully changed customer credentials." });
+        }
     }
 }

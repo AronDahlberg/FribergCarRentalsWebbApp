@@ -11,9 +11,10 @@ namespace FribergCarRentalsWebbApp.Controllers
 
         public IActionResult Index()
         {
+            int userId = (int)(HttpContext.Items["UserId"] ?? 0);
             bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
 
-            if (!userIsAdmin)
+            if (!userIsAdmin && userId != 0)
             {
                 return Unauthorized();
             }
@@ -23,7 +24,16 @@ namespace FribergCarRentalsWebbApp.Controllers
 
         public IActionResult Customers()
         {
-            return View();
+            bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
+
+            if (!userIsAdmin)
+            {
+                return Unauthorized();
+            }
+
+            var customers = _accountService.EagerAllCustomers().Where(c => !c.Deleted);
+
+            return View(customers);
         }
 
         public IActionResult Bookings()

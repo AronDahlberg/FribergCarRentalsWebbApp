@@ -119,5 +119,10 @@ namespace FribergCarRentalsWebbApp.Services
         {
             return _accountRepository.GetAdministratorById(id)?.Email;
         }
+
+        public IEnumerable<Customer> EagerAllCustomers()
+        {
+            return _accountRepository.EagerAll();
+        }
     }
 }

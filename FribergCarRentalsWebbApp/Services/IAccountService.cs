@@ -17,5 +17,6 @@ namespace FribergCarRentalsWebbApp.Services
         void ChangeCustomerPassword(Customer customer, string password);
         bool ConfirmAccountAsCustomer(int id);
         bool ConfirmAccountAsAdministrator(int id);
+        IEnumerable<Customer> EagerAllCustomers();
     }
 }
