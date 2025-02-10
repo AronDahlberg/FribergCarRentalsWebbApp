@@ -10,5 +10,6 @@ namespace FribergCarRentalsWebbApp.Services
         void AddCar(string carName, string description, int dailyPrice, int allowedMileage, int pricePerExtraMile, List<string> imageLinks);
         void AddImage(Car car, string imageLink);
         void EditCar(Car car, string carName, string description, int dailyPrice, int allowedMileage, int pricePerExtraMile);
+        void Unlist(Car car);
     }
 }

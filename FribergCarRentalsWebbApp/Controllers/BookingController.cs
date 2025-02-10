@@ -102,6 +102,23 @@ namespace FribergCarRentalsWebbApp.Controllers
         }
 
         [HttpPost]
+        public IActionResult UnlistCar(int carId)
+        {
+            bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
+
+            if (!userIsAdmin)
+            {
+                return Unauthorized();
+            }
+
+            Car car = _carService.EagerGetById(carId) ?? throw new KeyNotFoundException($"Could not find car with id: {carId}");
+
+            _carService.Unlist(car);
+
+            return Json(new { success = true, redirectUrl = Url.Action("Index", "Booking"), message = "Successfully unlisted car." });
+        }
+
+        [HttpPost]
         public IActionResult Book(int carId, string totalPrice, string pickupDateTime, string dropoffDateTime)
         {
             Car car = _carService.EagerGetById(carId) ?? throw new KeyNotFoundException($"Could not find car with id: {carId}");

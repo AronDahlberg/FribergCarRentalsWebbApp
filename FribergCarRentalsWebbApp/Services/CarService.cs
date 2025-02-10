@@ -111,5 +111,15 @@ namespace FribergCarRentalsWebbApp.Services
             _carRepository.Update(car);
             _carRepository.Save();
         }
+
+        public void Unlist(Car car)
+        {
+            ArgumentNullException.ThrowIfNull(car);
+
+            car.Unlisted = true;
+
+            _carRepository.Update(car);
+            _carRepository.Save();
+        }
     }
 }

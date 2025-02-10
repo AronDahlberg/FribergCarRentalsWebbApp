@@ -37,8 +37,9 @@
                                 }
                                 else
                                 {
-                                    <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#editCarInfoModal">Edit Info</a>
+                                    <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#editCarInfoModal">Edit</a>
                                     <a class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addImageModal">Add Image</a>
+                                    <a class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#unlistModal">Unlist</a>
                                 }
 
                                 <a class="btn btn-secondary btn-lg" asp-action="Index">Back</a>
@@ -53,14 +54,14 @@
                     <div class="d-md-none">
                         <div class="row row-cols-4 g-2 mb-4 ms-3 me-3">
                             @{
-                            int indexS = 1;
+                                int indexS = 1;
                             }
                             @foreach (var image in Model.Images)
                             {
-                            <div class="col">
-                                <a href="@image.Link" target="_blank" class="d-block">Image @indexS</a>
-                            </div>
-                            indexS++;
+                                <div class="col">
+                                    <a href="@image.Link" target="_blank" class="d-block">Image @indexS</a>
+                                </div>
+                                indexS++;
                             }
                         </div>
                     </div>
@@ -70,14 +71,14 @@
                         <div class="d-flex justify-content-end">
                             <ul class="list-group list-group-flush text-end d-inline-block w-auto">
                                 @{
-                                int indexL = 1;
+                                    int indexL = 1;
                                 }
                                 @foreach (var image in Model.Images)
                                 {
-                                <li class="list-group-item w-auto">
-                                    <a href="@image.Link" target="_blank">Image @indexL</a>
-                                </li>
-                                indexL++;
+                                    <li class="list-group-item w-auto">
+                                        <a href="@image.Link" target="_blank">Image @indexL</a>
+                                    </li>
+                                    indexL++;
                                 }
                             </ul>
                         </div>
@@ -138,7 +139,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form id="addImageForm">
-                    <input type="hidden" id="addImageCarId" value="@Model.Id"/>
+                    <input type="hidden" id="addImageCarId" value="@Model.Id" />
 
                     <div class="modal-header">
                         <h5 class="modal-title" id="addImageModalLabel">Add Image</h5>
@@ -153,6 +154,31 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unlist Modal -->
+    <div class="modal fade" id="unlistModal" tabindex="-1" aria-labelledby="unlistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="unlistForm">
+                    <input type="hidden" id="unlistCarId" value="@Model.Id" />
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="unlistModalLabel">Unlist</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Are you sure you want to unlist this car? This action cannot be undone.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger" id="unlistButton">Unlist</button>
                     </div>
                 </form>
             </div>
