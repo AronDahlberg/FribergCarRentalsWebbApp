@@ -22,7 +22,7 @@ namespace FribergCarRentalsWebbApp.Services
         public List<(DateTime, DateTime)> GetUnavailableDateRanges(int carId)
         {
             // Retrieve all bookings for the specified car that have not been invalidated.
-            var bookings = _bookingRepository.All().Where(b => b.Car.Id == carId && !b.Invalidated);
+            var bookings = _bookingRepository.EagerAll().Where(b => b.Car.Id == carId && !b.Invalidated);
 
             var unavailableRanges = new List<(DateTime, DateTime)>();
 

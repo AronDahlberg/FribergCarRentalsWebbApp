@@ -46,5 +46,16 @@ namespace FribergCarRentalsWebbApp.Data
         {
             _context.Update(booking);
         }
+
+        public IEnumerable<Booking> EagerAll()
+        {
+            return [.. _context.Bookings
+                    .Include(b => b.Car)
+                        .ThenInclude(c => c.Images)
+                    .Include(b => b.Car)
+                        .ThenInclude(c => c.Prices)
+                    .Include(b => b.CustomerAccount)
+                    .Include(b => b.Payments)];
+        }
     }
 }
