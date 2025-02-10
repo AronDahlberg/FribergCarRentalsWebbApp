@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
-    $(".confirmBookingCancelation").click(function () {
-        var bookingId = $(this).data("booking-id");
+    $(document).on('submit', '.cancelCustomerBookingForm', function (e) {
+        e.preventDefault();
+
+        var $form = $(this);
+        var bookingId = $form.find("input[name='cancelCustomerBookingId']").val();
 
         $.ajax({
             url: "/Booking/CancelBooking",
@@ -9,7 +12,8 @@
             dataType: "json",
             success: function (response) {
                 if (response.success) {
-                    alert("Booking successfully canceled");
+                    $("#cancelCustomerBookingModal-" + bookingId).modal("hide");
+
                     location.reload();
                 } else {
                     console.error("Error canceling booking", response);

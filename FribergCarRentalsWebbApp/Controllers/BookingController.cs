@@ -158,11 +158,13 @@ namespace FribergCarRentalsWebbApp.Controllers
         public IActionResult CancelBooking(int id)
         {
             int userId = (int)(HttpContext.Items["UserId"] ?? throw new InvalidOperationException("Could not find user"));
+            bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
+
             Customer customer = _accountService.LazyGetCustomerById(userId) ?? throw new KeyNotFoundException($"Could not find customer with id: {userId}");
 
             Booking booking = _bookingService.EagerGetById(id) ?? throw new KeyNotFoundException($"Could not find booking with id: {id}");
 
-            if (customer != booking.CustomerAccount)
+            if (customer != booking.CustomerAccount && !userIsAdmin)
             {
                 return Unauthorized();
             }

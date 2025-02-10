@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FribergCarRentalsWebbApp.Controllers
 {
-    public class AdminController(IAccountService accountService, IAuthCookieService authCookieService) : Controller
+    public class AdminController(IAccountService accountService, IAuthCookieService authCookieService, IBookingService bookingService) : Controller
     {
         private readonly IAccountService _accountService = accountService;
         private readonly IAuthCookieService _authCookieService = authCookieService;
+        private readonly IBookingService _bookingService = bookingService;
 
         public IActionResult Index()
         {
@@ -38,7 +39,16 @@ namespace FribergCarRentalsWebbApp.Controllers
 
         public IActionResult Bookings()
         {
-            return View();
+            bool userIsAdmin = (bool)(HttpContext.Items["UserAdmin"] ?? false);
+
+            if (!userIsAdmin)
+            {
+                return Unauthorized();
+            }
+
+            var bookings = _bookingService.EagerAll().Where(b => !b.Invalidated);
+
+            return View(bookings);
         }
 
         [HttpPost]

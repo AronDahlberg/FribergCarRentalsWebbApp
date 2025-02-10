@@ -1,5 +1,71 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<FribergCarRentalsWebbApp.Models.Booking>
 @{
+    ViewData["Title"] = "All Bookings";
 }
+
+<h1>@ViewData["Title"]</h1>
+<hr style="border: none; border-top: 1px solid #888; margin: 3rem 0;">
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var booking in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <ul>
+                            <li class="mb-2">Email: @booking.CustomerAccount.Email</li>
+                            <li class="mb-2">Booked Car: @booking.Car.Name</li>
+                            <li class="mb-2">Booking Date: @booking.BookingCreation</li>
+                            <li class="mb-2">Pick-up Date: @booking.PickupDateTime</li>
+                            <li class="mb-2">Drop-off Date: @booking.DropoffDateTime</li>
+                            <li class="mb-2">Booking Amount: $@booking.Payments!.FirstOrDefault(p => p.TypeOfPayment == FribergCarRentalsWebbApp.Common.PaymentType.Booking)!.PaymentAmount</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center justify-content-center">
+                            @if (booking.PickupDateTime > DateTime.UtcNow)
+                            {
+                                <div class="d-flex">
+                                    <a class="btn btn-danger"
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#cancelCustomerBookingModal-@booking.Id">
+                                        Cancel booking
+                                    </a>
+                                </div>
+                            } else
+                            {
+                                <p class="text-muted">Cannot cancel past or ongoing bookings.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cancel Customer Booking Modal -->
+            <div class="modal fade" id="cancelCustomerBookingModal-@booking.Id" tabindex="-1" aria-labelledby="cancelCustomerBookingModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form class="cancelCustomerBookingForm">
+                            <input type="hidden" name="cancelCustomerBookingId" value="@booking.Id" />
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="cancelCustomerBookingModalLabel">Cancel Booking</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Are you sure you want to cancel this customer's booking? This action cannot be undone.
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                <button type="submit" class="btn btn-danger">Yes, Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
