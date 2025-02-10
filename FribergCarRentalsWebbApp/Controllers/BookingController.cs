@@ -13,7 +13,7 @@ namespace FribergCarRentalsWebbApp.Controllers
 
         public IActionResult Index()
         {
-            var cars = _carService.EagerGetAllCars();
+            var cars = _carService.EagerGetAllCars().Where(c => !c.Unlisted);
 
             return View(cars);
         }
@@ -21,6 +21,11 @@ namespace FribergCarRentalsWebbApp.Controllers
         public IActionResult Details(int id)
         {
             Car car = _carService.EagerGetById(id) ?? throw new KeyNotFoundException($"Could not find car with id: {id}");
+
+            if (car.Unlisted)
+            {
+                return NotFound();
+            }
 
             return View(car);
         }
