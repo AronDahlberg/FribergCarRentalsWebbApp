@@ -28,7 +28,7 @@ namespace FribergCarRentalsWebbApp.Controllers
             }
             else
             {
-                throw new NotImplementedException();
+                return RedirectToAction("Index", "Admin");
             }
         }
 
