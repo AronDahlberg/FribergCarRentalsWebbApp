@@ -13,14 +13,19 @@
             data: formData,
             dataType: "json",
             success: function (response) {
-                location.reload();
+                if (response.success) {
+                    location.reload();
+                } else {
+                    console.error("Login error", response);
+                    alert("An unexpected error occurred while loggin you in, please try again.");
+                }
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 401) {
                     alert("Invalid email or password")
                 } else {
                     console.error("Login error", xhr, status, error);
-                    alert("An unexpected error occurred. Please try again later.");
+                    alert("An unexpected error occurred while loggin you in, please try again.");
                 }
             }
         });

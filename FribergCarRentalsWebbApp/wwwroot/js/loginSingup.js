@@ -12,17 +12,22 @@
             type: "POST",
             url: "/Account/Login",
             data: formData,
-            dataType: "json", // Expect JSON response
+            dataType: "json",
             success: function (response) {
-                $("#loginSignupModal").modal("hide");
-                location.reload();
+                if (response.success) {
+                    $("#loginSignupModal").modal("hide");
+                    location.reload();
+                } else {
+                    console.error("Login error", response);
+                    alert("An unexpected error occurred during login, please try again.");
+                }
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 401) {
                     alert("Invalid email or password")
                 } else {
                     console.error("Login error", xhr, status, error);
-                    alert("An unexpected error occurred. Please try again later.");
+                    alert("An unexpected error occurred during login, please try again.");
                 }
             }
         });
@@ -42,22 +47,27 @@
                 type: "POST",
                 url: "/Account/Signup",
                 data: formData,
-                dataType: "json", // Expect JSON response
+                dataType: "json",
                 success: function (response) {
-                    $("#loginSignupModal").modal("hide");
-                    location.reload();
+                    if (response.success) {
+                        $("#loginSignupModal").modal("hide");
+                        location.reload();
+                    } else {
+                        console.error("Singup error", response);
+                        alert("An unexpected error occurred during signup, please try again.");
+                    }
                 },
                 error: function (xhr, status, error) {
                     if (xhr.status === 409) {
                         alert("The email is already in use")
                     } else {
                         console.error("Singup error", xhr, status, error);
-                        alert("An unexpected error occurred. Please try again later.");
+                        alert("An unexpected error occurred during signup, please try again.");
                     }
                 }
             });
         } else {
-            alert("Passwords do not match")
+            alert("Passwords do not match.")
         }
     });
 });

@@ -10,8 +10,8 @@
 
                     window.location.href = response.redirectUrl;
                 } else {
-                    console.error("Email change error", response);
-                    alert("Error: " + response.message);
+                    console.error("Account deletion error", response);
+                    alert("An error occurred while deleting your account, please try again.");
                 }
             },
             error: function (xhr, status, error) {

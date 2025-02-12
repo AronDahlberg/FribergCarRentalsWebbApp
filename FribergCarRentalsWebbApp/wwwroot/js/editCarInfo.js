@@ -22,12 +22,12 @@
                     location.reload();
                 } else {
                     console.error("Car info change error", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while updating the new car information, please try again.");
                 }
             },
             error: function (xhr, status, error) {
                 console.error("Car info change error", xhr, status, error);
-                alert("An error occurred while updating the new car information. Please try again.");
+                alert("An error occurred while updating the new car information, please try again.");
             }
         });
     });

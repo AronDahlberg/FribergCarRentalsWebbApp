@@ -91,12 +91,12 @@
                     window.location.href = response.redirectUrl;
                 } else {
                     console.error("Listing creation error", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while creating the listing, please try again.");
                 }
             },
             error: function (xhr, status, error) {
-                console.error("Error creating listing:", xhr, status, error);
-                alert("An error occurred while creating the listing. Please try again.");
+                console.error("Listing creation error", xhr, status, error);
+                alert("An error occurred while creating the listing, please try again.");
             }
         });
     });

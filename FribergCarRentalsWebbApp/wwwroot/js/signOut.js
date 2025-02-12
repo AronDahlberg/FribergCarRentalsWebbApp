@@ -9,7 +9,7 @@
                     window.location.href = response.redirectUrl;
                 } else {
                     console.error("Sign out error", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while signing out, please try again.");
                 }
             },
             error: function (xhr, status, error) {

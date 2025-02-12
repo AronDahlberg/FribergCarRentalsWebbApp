@@ -18,12 +18,12 @@
                     window.location.href = response.redirectUrl;
                 } else {
                     console.error("Unlisting error", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while unlisting the car, please try again.");
                 }
             },
             error: function (xhr, status, error) {
                 console.error("Unlisting error", xhr, status, error);
-                alert("An error occurred while unlisting the car.");
+                alert("An error occurred while unlisting the car, please try again.");
             }
         });
     });

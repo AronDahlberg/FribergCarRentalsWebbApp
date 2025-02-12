@@ -1,4 +1,15 @@
-﻿$(document).ready(function () {
+﻿function isDateBooked(date) {
+    for (var i = 0; i < unavailableRanges.length; i++) {
+        var bookedStart = moment(unavailableRanges[i].start, 'MM/DD/YYYY');
+        var bookedEnd = moment(unavailableRanges[i].end, 'MM/DD/YYYY');
+        if (date.isBetween(bookedStart, bookedEnd, 'day', '[]')) {
+            return true;
+        }
+    }
+    return false;
+}
+
+$(document).ready(function () {
     // Initialize the daterangepicker on the #dateRange input.
     $('#dateRange').daterangepicker({
         autoApply: false,
@@ -7,16 +18,7 @@
         },
         minDate: moment(), // disable past dates
         isInvalidDate: function (date) {
-            // Loop through each unavailable (booked) range.
-            for (var i = 0; i < unavailableRanges.length; i++) {
-                var start = moment(unavailableRanges[i].start, 'MM/DD/YYYY');
-                var end = moment(unavailableRanges[i].end, 'MM/DD/YYYY');
-                // Disable dates within any booked period (inclusive).
-                if (date.isBetween(start, end, 'day', '[]')) {
-                    return true;
-                }
-            }
-            return false;
+            return isDateBooked(date);
         }
     });
 
@@ -28,23 +30,18 @@
 
         // Iterate over each day in the selected range.
         for (var day = start.clone(); day.isSameOrBefore(end, 'day'); day.add(1, 'day')) {
-            for (var i = 0; i < unavailableRanges.length; i++) {
-                var bookedStart = moment(unavailableRanges[i].start, 'MM/DD/YYYY');
-                var bookedEnd = moment(unavailableRanges[i].end, 'MM/DD/YYYY');
-                if (day.isBetween(bookedStart, bookedEnd, 'day', '[]')) {
-                    invalidFound = true;
-                    break;
-                }
+            if (isDateBooked(day)) {
+                invalidFound = true;
+                break;
             }
-            if (invalidFound) break;
         }
 
         if (invalidFound) {
             alert("The selected date range includes one or more dates that are already booked. Please choose a valid range.");
-            // Optionally, clear the selection by resetting the daterangepicker:
+
             $(this).data('daterangepicker').setStartDate(moment());
             $(this).data('daterangepicker').setEndDate(moment());
-            // You may also want to clear any related hidden fields.
+
             $('#pickupDateTime, #dropoffDateTime, #totalPrice').val('');
             $('#totalPriceDisplay').text('$' + dailyPrice);
             return;

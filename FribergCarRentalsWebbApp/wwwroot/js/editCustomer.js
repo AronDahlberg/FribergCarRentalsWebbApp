@@ -23,7 +23,7 @@
                     location.reload();
                 } else {
                     console.error("Editing error", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while changing the customer credentials, please try again.");
                 }
             },
             error: function (xhr, status, error) {

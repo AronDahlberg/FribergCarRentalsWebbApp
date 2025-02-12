@@ -17,12 +17,12 @@
                     location.reload();
                 } else {
                     console.error("Error canceling booking", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while canceling the booking, please try again.");
                 }
             },
             error: function (xhr, status, error) {
-                console.error("Error canceling booking:", xhr, status, error);
-                alert("An error occurred while canceling the booking. Please try again.");
+                console.error("Error canceling booking", xhr, status, error);
+                alert("An error occurred while canceling the booking, please try again.");
             }
         });
     });

@@ -17,7 +17,7 @@
                     location.reload();
                 } else {
                     console.error("Deletion error", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while deleting the customer, please try again.");
                 }
             },
             error: function (xhr, status, error) {

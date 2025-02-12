@@ -18,12 +18,12 @@
                     location.reload();
                 } else {
                     console.error("Image adding error", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while adding the image, please try again.");
                 }
             },
             error: function (xhr, status, error) {
                 console.error("Image adding error", xhr, status, error);
-                alert("An error occurred while adding the image. Please try again.");
+                alert("An error occurred while adding the image, please try again.");
             }
         });
     });

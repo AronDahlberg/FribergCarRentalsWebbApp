@@ -22,7 +22,7 @@
                         alert("Succesfully changed password.");
                     } else {
                         console.error("Password change error", response);
-                        alert("Error: " + response.message);
+                        alert("An error occurred while updating the password, please try again.");
                     }
                 },
                 error: function (xhr, status, error) {
@@ -31,12 +31,12 @@
                         $("#currentPassword").val('');
                     } else {
                         console.error("Password change error", xhr, status, error);
-                        alert("An error occurred while updating the password.");
+                        alert("An error occurred while updating the password, please try again.");
                     }
                 }
             });
         } else {
-            alert("Passwords do not match");
+            alert("Passwords do not match.");
             $("#newPassword, #confirmPassword").val('');
         }
     });

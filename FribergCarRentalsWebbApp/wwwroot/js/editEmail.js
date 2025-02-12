@@ -17,12 +17,12 @@
                     location.reload();
                 } else {
                     console.error("Email change error", response);
-                    alert("Error: " + response.message);
+                    alert("An error occurred while updating the email, please try again.");
                 }
             },
             error: function (xhr, status, error) {
                 console.error("Email change error", xhr, status, error);
-                alert("An error occurred while updating the email.");
+                alert("An error occurred while updating the email, please try again.");
             }
         });
     });
