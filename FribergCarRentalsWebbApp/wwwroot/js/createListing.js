@@ -14,7 +14,7 @@
                 if (!isNewItem) {
                     var oldVal = $input.data('old') || "";
                     $li.empty().append(
-                        $('<span class="create-listing-image-link-text" style="cursor: pointer;"></span>').text(oldVal)
+                        $('<span class="create-listing-image-link-text text-nowrap overflow-auto" style="cursor: pointer; max-width: 700px;"></span>').text(oldVal)
                     ).append(
                         $('<button type="button" class="btn btn-danger btn-sm float-end create-listing-delete-link">X</button>')
                     );
@@ -23,7 +23,7 @@
             }
 
             $li.empty().append(
-                $('<span class="create-listing-image-link-text" style="cursor: pointer;"></span>').text(url)
+                $('<span class="create-listing-image-link-text text-nowrap overflow-auto" style="cursor: pointer; max-width: 700px;"></span>').text(url)
             ).append(
                 $('<button type="button" class="btn btn-danger btn-sm float-end create-listing-delete-link">X</button>')
             );
